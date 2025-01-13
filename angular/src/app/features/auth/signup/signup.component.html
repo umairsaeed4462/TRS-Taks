@@ -10,8 +10,11 @@
             <app-input controlName="email" type="email" label="Email"></app-input>
             <app-input controlName="password" type="password" label="Password"></app-input>
             <app-input controlName="cPassword" type="password" label="Confirm Password"></app-input>
+            @if (signUpForm.get('cPassword')?.value != signUpForm.get('password')?.value) {
+              <p class="text-danger">Password Not Matched</p>
+            }
             <!-- Sign Up Button -->
-            <app-button title="Sign Up" type="submit" [disable]="signUpForm.invalid" [isLoading]="isLoading()"></app-button>
+            <app-button title="Sign Up" type="submit" [disable]="signUpForm.invalid || signUpForm.get('cPassword')?.value == signUpForm.get('password')" [isLoading]="isLoading()"></app-button>
           </form>
           <!-- Sign Up Form End -->
 

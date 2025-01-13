@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UtilityService } from '../../../core/services/utility.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  public utilitySer: UtilityService = inject(UtilityService);
 }
