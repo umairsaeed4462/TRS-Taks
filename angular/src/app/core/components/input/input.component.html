@@ -1,0 +1,14 @@
+<div class="mb-3">
+    <label [for]="label()" class="form-label">{{label()}}</label>
+    @if (type() == 'password') {
+    <input [readonly]="disable()" [type]="hide() ? 'password' : 'text'" id="field" [formControlName]="controlName()"
+        (blur)="updateErrorMessage()" class="form-control" [id]="label()" [placeholder]="placeholder()" required>
+    }@else {
+    <input [readonly]="disable()" [type]="type()" id="field" [formControlName]="controlName()"
+        (blur)="updateErrorMessage()" class="form-control" [id]="label()" [placeholder]="placeholder()" required>
+    }
+    @if (fc.invalid) {
+    <span class="text-danger">{{errorMessage()}}</span>
+    }
+
+</div>
