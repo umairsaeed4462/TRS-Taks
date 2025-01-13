@@ -32,6 +32,7 @@ export class LoginComponent {
         const user: UserModel = { ...res.data.user, token: res.data.token };
         this.localSer.setItem(LocalStorageKeys.USER_LOGIN, user);
         this.toastSer.success('Login Successfully');
+        this.loginForm.reset();
         this.utilitySer.navigateTo('/', true);
       },
       error: () => {this.isLoading.set(false);}

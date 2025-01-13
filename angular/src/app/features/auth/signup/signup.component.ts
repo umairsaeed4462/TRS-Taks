@@ -32,6 +32,7 @@ export class SignupComponent {
       next: (res: HttpResponseModel) =>{
         this.isLoading.set(false);
         this.utilitySer.navigateTo('auth');
+        this.signUpForm.reset();
         this.toastSer.success("Signup Success. Please login");
       }, error: ()=> {this.isLoading.set(false);}
     })
