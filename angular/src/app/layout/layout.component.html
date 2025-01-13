@@ -1,0 +1,41 @@
+<div class="nk-body ui-rounder npc-default has-sidebar ">
+    <div class="nk-app-root">
+        <div class="nk-sidebar" data-content="sidebarMenu">
+            
+            <div class="nk-sidebar-main is-light">
+                <div class="nk-sidebar-inner" data-simplebar>
+                    <div class="nk-menu-content menu-active" data-content="navDashboards">
+                        <h5 class="title">Dashboards</h5>
+                        <ul class="nk-menu">
+                            <li class="nk-menu-item">
+                                <a routerLink="/" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                    <span class="nk-menu-text">Dashboard</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a routerLink="user/events" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                    <span class="nk-menu-text">Events</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a routerLink="user/join-events" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                    <span class="nk-menu-text">Join Events</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                        </ul><!-- .nk-menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main @s -->
+        <div class="nk-main ">
+            <div class="nk-wrap ">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- main @e -->
+    </div>
+</div>
