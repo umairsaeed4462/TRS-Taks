@@ -5,6 +5,10 @@ import { SignUPForm, UserModel } from '../../../core/models/user.model';
 import { HttpResponseModel } from '../../../core/models/core.model';
 import { UtilityService } from '../../../core/services/utility.service';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseAuthService } from '../../../core/services/firebase-auth.service';
+import { FirebaseError } from '@angular/fire/app';
+import { LocalstorageService } from '../../../core/services/localstorage.service';
+import { LocalStorageKeys } from '../../../core/enums/core.enum';
 
 @Component({
   selector: 'app-signup',
@@ -14,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class SignupComponent {
 
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
+  public isVerificationEmailSend: WritableSignal<boolean> = signal<boolean>(false);
   public signUpForm: FormGroup<SignUPForm> = new FormGroup<SignUPForm>({
     username: new FormControl('', Validators.required),
     email: new FormControl('',[ Validators.required, Validators.email]),
@@ -22,19 +27,21 @@ export class SignupComponent {
     role: new FormControl('user'),
   });
 
-  private apiSer: AuthApiService = inject(AuthApiService);
-  private utilitySer: UtilityService = inject(UtilityService);
+  private localSer: LocalstorageService = inject(LocalstorageService);
   private toastSer: ToastrService = inject(ToastrService);
-  
-  public onSignup(): void {
+  private firebaseSer: FirebaseAuthService = inject(FirebaseAuthService);
+
+  public sendVerificationEmail(): void {
     this.isLoading.set(true);
-    this.apiSer.onSignUp(this.signUpForm.value as UserModel).subscribe({
-      next: (res: HttpResponseModel) =>{
-        this.isLoading.set(false);
-        this.utilitySer.navigateTo('auth');
-        this.signUpForm.reset();
-        this.toastSer.success("Signup Success. Please login");
-      }, error: ()=> {this.isLoading.set(false);}
+    this.firebaseSer.sendVerificationEmail((this.signUpForm.value as UserModel).email).then(()=>{
+      this.isLoading.set(false);
+      this.isVerificationEmailSend.set(true);
+      this.toastSer.success('Verification email sent');
+      this.localSer.setItem(LocalStorageKeys.VERIFY_EMAIL_DATA, this.signUpForm.value as UserModel);
+      this.signUpForm.reset();
+    }).catch((error: FirebaseError)=>{
+      this.isLoading.set(false);
+      this.toastSer.error(error.message);
     })
   }
 

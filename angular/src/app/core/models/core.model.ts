@@ -5,3 +5,11 @@ export interface HttpResponseModel {
     message: string;
     status: HttpStatusCode;
 }
+
+export interface VerificationRequest {
+    apiKey: string;
+    lang: string;
+    mode: string;
+    oobCode: string;
+  }
+  

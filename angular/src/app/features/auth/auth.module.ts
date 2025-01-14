@@ -7,11 +7,12 @@ import { RouterModule } from '@angular/router';
 import { routes } from './auth.route';
 import { InputComponent } from '../../core/components/input/input.component';
 import { ButtonComponent } from '../../core/components/button/button.component';
+import { VerificationComponent } from './verification/verification.component';
 
 
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, VerificationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
