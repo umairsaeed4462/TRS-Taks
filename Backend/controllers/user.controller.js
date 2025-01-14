@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
             // Check if user already exists
             const userExists = await userSchema.findOne({ username });
             if (userExists) {
-                return responseHandler(res, StatusCode.BAD_REQUEST, 'User already exists');
+                return responseHandler(res, StatusCode.BAD_REQUEST, 'username already exists');
             }
             // Create new user
             const newUser = new userSchema({
