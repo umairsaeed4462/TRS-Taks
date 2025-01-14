@@ -1,7 +1,6 @@
 <div class="nk-body ui-rounder npc-default has-sidebar ">
     <div class="nk-app-root">
-        <div class="nk-sidebar" data-content="sidebarMenu">
-            
+        <div class="nk-sidebar" data-content="sidebarMenu">     
             <div class="nk-sidebar-main is-light">
                 <div class="nk-sidebar-inner" data-simplebar>
                     <div class="nk-menu-content menu-active" data-content="navDashboards">
@@ -30,12 +29,22 @@
                 </div>
             </div>
         </div>
-        <!-- main @s -->
+        <!-- main 1s -->
         <div class="nk-main ">
+            <!-- wrap 1s -->
             <div class="nk-wrap ">
-                <router-outlet></router-outlet>
+                <!-- main header 1s -->
+                <app-navbar></app-navbar>
+                <!-- main header 1e -->
+                <!-- content 1s -->
+                <div class="nk-content ">
+                    <router-outlet></router-outlet>
+                </div>
+                <!-- content 1e -->
             </div>
+            <!-- wrap 1e -->
         </div>
-        <!-- main @e -->
+        <!-- main 1e -->
+       
     </div>
 </div>
