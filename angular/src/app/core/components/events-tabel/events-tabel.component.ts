@@ -1,4 +1,4 @@
-import { Component, inject, input, InputSignal, model, ModelSignal, OnInit, output, OutputEmitterRef, signal, WritableSignal } from '@angular/core';
+import { Component, ElementRef, inject, input, InputSignal, model, ModelSignal, OnInit, output, OutputEmitterRef, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { colDef, DataTableModule } from '@bhplugin/ng-datatable';
 import { EventsModel } from '../../models/events.model';
 import { EVENTS_COLUMNS } from '../../consts/consts';
@@ -37,6 +37,8 @@ export class EventsTabelComponent implements OnInit {
 
   public onUpdate: OutputEmitterRef<void> = output<void>();
 
+  public eventModel: Signal<EventModelComponent | undefined> = viewChild<EventModelComponent>(EventModelComponent);
+public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('deleteModel');
 
   public ngOnInit(): void {
     this.searchField.valueChanges.subscribe((value: string) => {
@@ -56,6 +58,7 @@ export class EventsTabelComponent implements OnInit {
       next: (res: HttpResponseModel) => {
         this.isSubLoading.set(false);
         this.toastSer.success(res.message);
+        (this.closeBtn()?.nativeElement as HTMLButtonElement).click();
         this.onUpdate.emit();
       },
       error: () => {this.isSubLoading.set(false);}
@@ -85,9 +88,14 @@ export class EventsTabelComponent implements OnInit {
         this.isLoading.set(false);
         this.toastSer.success(res.message);
         this.onUpdate.emit();
+        this.eventModel()?.onCloseModel();
       },
       error: () => { this.isLoading.set(false); }
     })
+  }
+
+  public isUserJoined(list: UserModel[]): boolean {
+    return list.find( user => user._id == this.userInfo()?._id) ? true : false;
   }
 
   public onApproved(event: EventsModel): void {

@@ -30,7 +30,7 @@ export class UsersEventsComponent implements OnInit {
   private eventSer: EventApiService = inject(EventApiService);
   private toastSer: ToastrService = inject(ToastrService);
 
-  public eventModel: Signal<ElementRef<any> | undefined> = viewChild<ElementRef>('eventModel')
+  public eventModel: Signal<EventModelComponent | undefined> = viewChild<EventModelComponent>(EventModelComponent);
 
   public ngOnInit(): void {
     this.fetchUserEvents();
@@ -50,6 +50,7 @@ export class UsersEventsComponent implements OnInit {
   }
 
   public onAddEvent(event: EventsModel): void {
+
     const user: UserModel | null = this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN);
     if (!user) return;
     event.user = user._id;
@@ -61,6 +62,7 @@ export class UsersEventsComponent implements OnInit {
         this.isLoading.set(false);
         this.fetchUserEvents();
         this.toastSer.success(res.message);
+        this.eventModel()?.onCloseModel();
       }, error: ()=>{ this.isLoading.set(false);}
     })
     

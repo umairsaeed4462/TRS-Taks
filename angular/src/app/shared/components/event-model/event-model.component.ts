@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, effect, input, InputSignal, OnInit, output, OutputEmitterRef, signal, WritableSignal } from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, input, InputSignal, OnInit, output, OutputEmitterRef, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { InputComponent } from '../../../core/components/input/input.component';
@@ -25,6 +25,8 @@ export class EventModelComponent {
 
   public onSave: OutputEmitterRef<EventsModel> = output<EventsModel>();
 
+  public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('closeBtn');
+
   public constructor() {
     effect(() => {
       if (this.eventDetail()) {
@@ -47,6 +49,10 @@ export class EventModelComponent {
 
   public onAddEvent(): void {
     this.onSave.emit(this.eventForm.value as EventsModel);
+  }
+
+  public onCloseModel(): void {
+    (this.closeBtn()?.nativeElement as HTMLButtonElement).click();
   }
 
 }
