@@ -90,11 +90,31 @@ const deleteEvent = async (req, res) => {
     }
 };
 
+// Approved event details
+const approvedEvent = async (req, res) => {
+    const { eventId } = req.params;
+    try {
+        const updatedEvent = await eventSchema.findByIdAndUpdate(
+            eventId,
+            { status: 'approved' },
+            { new: true }
+        );
+        if (!updatedEvent) {
+            return responseHandler(res, StatusCode.NOT_FOUND, 'Event not found');
+        }
+        return responseHandler(res, StatusCode.SUCCESS, 'Event Approved successfully', updatedEvent);
+    } catch (error) {
+        console.error(error);
+        return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+    }
+};
+
 module.exports = {
     createEvent,
     getAllEvents,
     getEventById,
     updateEvent,
     deleteEvent,
-    getActiveEvents
+    getActiveEvents,
+    approvedEvent
 };

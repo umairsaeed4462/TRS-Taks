@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const LayoutRoutes: Routes = [
-    { path: '', redirectTo: 'user/events', pathMatch: 'full' },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     {
         path: 'dashboard',
         loadComponent: () => import('../features/dashboard/dashboard.component').then(m => m.DashboardComponent)
@@ -13,6 +13,10 @@ export const LayoutRoutes: Routes = [
     {
         path: 'user/join-events',
         loadComponent: () => import('../features/users/join-events/join-events.component').then(m => m.JoinEventsComponent)
+    },
+    {
+        path: 'admin/events-list',
+        loadComponent: () => import('../features/admin/events/events.component').then(m => m.EventsComponent)
     }
     
 ]

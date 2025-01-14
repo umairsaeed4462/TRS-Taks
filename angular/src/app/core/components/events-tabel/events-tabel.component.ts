@@ -90,6 +90,18 @@ export class EventsTabelComponent implements OnInit {
     })
   }
 
+  public onApproved(event: EventsModel): void {
+    this.isSubLoading.set(true);
+    this.eventSer.approvedEvent(event._id).subscribe({
+      next: (res: HttpResponseModel) => {
+        this.isSubLoading.set(false);
+        this.toastSer.success(res.message);
+        this.onUpdate.emit();
+      },
+      error: () => { this.isSubLoading.set(false); }
+    })
+  }
+
 
 
 }

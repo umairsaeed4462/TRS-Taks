@@ -10,6 +10,9 @@ import { EventsModel } from '../../models/events.model';
 export class EventApiService extends BaseApiService {
   
   private readonly module: string = 'events';
+  public getAllEvents(): Observable<HttpResponseModel> {
+    return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}`, this.httpOptions);
+  }
   public getAllActiveEvents(): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/getAllActiveEvents`, this.httpOptions);
   }
@@ -30,6 +33,9 @@ export class EventApiService extends BaseApiService {
 
   public deleteEvent(eventID: string): Observable<HttpResponseModel> {
     return this.http.delete<HttpResponseModel>(`${this.apiURL}/${this.module}/deleteEvent/${eventID}`, this.httpOptions);
+  }
+  public approvedEvent(eventID: string): Observable<HttpResponseModel> {
+    return this.http.patch<HttpResponseModel>(`${this.apiURL}/${this.module}/approved/${eventID}`, this.httpOptions);
   }
   
 }

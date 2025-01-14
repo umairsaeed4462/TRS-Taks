@@ -7,23 +7,33 @@
                         <h5 class="title">Dashboards</h5>
                         <ul class="nk-menu">
                             <li class="nk-menu-item">
-                                <a routerLink="/" class="nk-menu-link">
+                                <a routerLink="/dashboard" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                                     <span class="nk-menu-text">Dashboard</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a routerLink="user/events" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
-                                    <span class="nk-menu-text">Events</span>
-                                </a>
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item">
-                                <a routerLink="user/join-events" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
-                                    <span class="nk-menu-text">Join Events</span>
-                                </a>
-                            </li><!-- .nk-menu-item -->
+                            @if (userInfo()?.role == 'admin') {
+                                <li class="nk-menu-item">
+                                    <a routerLink="admin/events-list" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Events</span>
+                                    </a>
+                                </li>
+                            }@else {
+                                <li class="nk-menu-item">
+                                    <a routerLink="user/events" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Events</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item">
+                                    <a routerLink="user/join-events" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Join Events</span>
+                                    </a>
+                                </li>
+                            }
+                            <!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->
                     </div>
                 </div>
