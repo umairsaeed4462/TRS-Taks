@@ -2,6 +2,7 @@ import { Form, FormControl } from "@angular/forms";
 import { UserRole } from "../types/core.types";
 
 export interface UserModel {
+    _id: string;
     username: string;
     email: string;
     password: string;

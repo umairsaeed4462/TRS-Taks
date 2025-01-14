@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{isEdit()? "Update Event": "Create New Event"}} </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<form [formGroup]="eventForm" (ngSubmit)="onAddEvent()" novalidate>
+    <div class="modal-body">
+
+        <app-input controlName="title" label="title"></app-input>
+        <app-input controlName="description" label="description"></app-input>
+        <app-input controlName="location" label="location"></app-input>
+        <app-input controlName="date" type="date" label="date"></app-input>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <app-button [title]="isEdit()? 'Update': 'Add'" type="submit" [disable]="eventForm.invalid" [isLoading]="isLoading()" />
+    </div>
+
+</form>
