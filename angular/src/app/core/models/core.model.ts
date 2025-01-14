@@ -6,10 +6,17 @@ export interface HttpResponseModel {
     status: HttpStatusCode;
 }
 
+export interface DashboardModel {
+    totalEvents: string;
+    totalApprovedEvents: string;
+    totalPendingEvents: string;
+    totalUsers: string;
+    totalAttendees: string;
+}
+
 export interface VerificationRequest {
     apiKey: string;
     lang: string;
     mode: string;
     oobCode: string;
-  }
-  
+}

@@ -11,11 +11,12 @@ import { HttpResponseModel } from '../../models/core.model';
 import { EventModelComponent } from '../../../shared/components/event-model/event-model.component';
 import { UserModel } from '../../models/user.model';
 import { LocalStorageKeys } from '../../enums/core.enum';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-events-tabel',
   standalone: true,
-  imports: [DataTableModule, ReactiveFormsModule, ButtonComponent, EventModelComponent],
+  imports: [DataTableModule, ReactiveFormsModule, ButtonComponent, EventModelComponent, DatePipe],
   templateUrl: './events-tabel.component.html',
   styleUrl: './events-tabel.component.scss'
 })

@@ -1,6 +1,7 @@
 const { joinEventSchema, eventSchema } = require('../models/event.model');
 const { StatusCode } = require('../consts/const');
 const { responseHandler } = require('../utils/responseHandler');
+const { userSchema } = require('../models/user.model');
 
 // User joins an event
 const joinEvent = async (req, res) => {
@@ -38,6 +39,31 @@ const joinEvent = async (req, res) => {
     }
 };
 
+const dashboardReport = async (req, res) => {
+    try {
+        const totalEvents = await eventSchema.countDocuments();
+        const totalApprovedEvents = await eventSchema.countDocuments({ status: 'approved' });
+        const totalPendingEvents = await eventSchema.countDocuments({ status: 'pending' });
+        const totalUsers = await userSchema.countDocuments();
+        
+        // Optionally, if you want other relevant data based on this query:
+        const totalAttendees = await joinEventSchema.countDocuments();
+
+        const summary = {
+            totalEvents,
+            totalApprovedEvents,
+            totalPendingEvents,
+            totalUsers,
+            totalAttendees
+        };
+
+        return responseHandler(res, StatusCode.SUCCESS, "Dashboard summary retrieved successfully", summary);
+    } catch (error) {
+        return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+    }
+};
+
 module.exports = {
-    joinEvent
+    joinEvent,
+    dashboardReport
 };

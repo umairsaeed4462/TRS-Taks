@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, effect, ElementRef, input, InputSignal, OnInit, output, OutputEmitterRef, Signal, signal, viewChild, WritableSignal } from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, inject, input, InputSignal, OnInit, output, OutputEmitterRef, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { InputComponent } from '../../../core/components/input/input.component';
 import { EventForm, EventsModel } from '../../../core/models/events.model';
+import { UtilityService } from '../../../core/services/utility.service';
 
 @Component({
   selector: 'app-event-model',
@@ -25,6 +26,8 @@ export class EventModelComponent {
 
   public onSave: OutputEmitterRef<EventsModel> = output<EventsModel>();
 
+  private utilitySer: UtilityService = inject(UtilityService);
+
   public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('closeBtn');
 
   public constructor() {
@@ -42,7 +45,7 @@ export class EventModelComponent {
         title: this.eventDetail()!.title,
         location: this.eventDetail()!.location,
         description: this.eventDetail()!.description,
-        date: this.eventDetail()!.date,
+        date: this.utilitySer.formatDateString(this.eventDetail()!.date),
       });
     }, 200);
   }

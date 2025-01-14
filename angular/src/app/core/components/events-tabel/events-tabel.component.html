@@ -15,15 +15,27 @@
                 nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'>
 
                 <ng-template slot="members" let-value="data">
+                    @if (value.attendees.length) {
+                    <a style="text-decoration: underline; cursor: pointer;" (click)="selectedEvent.set(value)"
+                        data-bs-toggle="modal" data-bs-target="#viewMemberModal">
+                        <p>{{ value.attendees.length }}</p>
+                    </a>
+                    }@else {
                     <p>{{ value.attendees.length }}</p>
+                    }
+
                 </ng-template>
 
                 <ng-template slot="status" let-value="data">
                     @if (value.status == 'pending' && userInfo()?.role == 'admin') {
-                        <app-button (click)="onApproved(value)" title="Approved" [isLoading]="isSubLoading()" />
+                    <app-button (click)="onApproved(value)" title="Approved" [isLoading]="isSubLoading()" />
                     }@else {
-                        {{value.status}}
+                    {{value.status}}
                     }
+                </ng-template>
+
+                <ng-template slot="date" let-value="data">
+                    {{value.date | date}}
                 </ng-template>
 
                 <ng-template slot="actions" let-value="data">
@@ -47,12 +59,12 @@
                         </div>
                     </div>
                     }@else {
-                        @if (isUserJoined(value.attendees)) {
-                            <p>Joined</p>
-                        }@else {
-                            <app-button class="dropdown-item" title="Join Event" (click)="onJoinEvent(value)" />
-                        }
-                     
+                    @if (isUserJoined(value.attendees)) {
+                    <p>Joined</p>
+                    }@else {
+                    <app-button class="dropdown-item" title="Join Event" (click)="onJoinEvent(value)" />
+                    }
+
                     }
 
                 </ng-template>
@@ -83,6 +95,32 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <app-event-model (onSave)="onEditEvent($event)" [eventDetail]="selectedEvent()" />
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="viewMemberModal" tabindex="-1" aria-labelledby="viewMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewMemberModalLabel">Members of {{selectedEvent()?.title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ol class="list-group list-group-numbered">
+                    @for (item of selectedEvent()?.attendees; track $index) {
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{item.username}}</div>
+                                {{item.email}}
+                            </div>
+                        </li>
+                    }
+                    
+                </ol>
+                
+            </div>
         </div>
     </div>
 </div>
