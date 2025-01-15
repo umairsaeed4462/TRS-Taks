@@ -6,6 +6,7 @@ import { FirebaseAuthService } from '../../../core/services/firebase-auth.servic
 import { FirebaseError } from '@angular/fire/app';
 import { LocalstorageService } from '../../../core/services/localstorage.service';
 import { LocalStorageKeys } from '../../../core/enums/core.enum';
+import { DEFAULT_ROLE_ID } from '../../../core/consts/consts';
 
 @Component({
   selector: 'app-signup',
@@ -30,12 +31,11 @@ export class SignupComponent {
 
   public sendVerificationEmail(): void {
 
-    const payload: UserModel = {
+    const payload = {
       username: this.signUpForm.value.username!,
       email: this.signUpForm.value.email!,
       password: this.signUpForm.value.password!,
-      role: 'user',
-      permissions: {create: true, update: true, delete: false, join: true}
+      role: DEFAULT_ROLE_ID,
     }    
     this.isLoading.set(true);
     this.firebaseSer.sendVerificationEmail(payload.email).then(()=>{

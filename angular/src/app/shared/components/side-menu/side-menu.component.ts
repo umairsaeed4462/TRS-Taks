@@ -15,15 +15,15 @@ import { LocalStorageKeys } from '../../../core/enums/core.enum';
 export class SideMenuComponent {
 
   public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
-  
-    private localSer: LocalstorageService = inject(LocalstorageService);
-  
-    public ngOnInit(): void {
-      this.getUserInfo();
-    }
-  
-    private async getUserInfo(): Promise<void> {
-      this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
-    }
+
+  private localSer: LocalstorageService = inject(LocalstorageService);
+
+  public ngOnInit(): void {
+    this.getUserInfo();
+  }
+
+  private async getUserInfo(): Promise<void> {
+    this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
+  }
 
 }

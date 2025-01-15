@@ -53,14 +53,6 @@ export class EventsTabelComponent implements OnInit {
     this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
   }
 
-  public onEventDetails(event: EventsModel): void {
-    if (this.userInfo()?.role == 'admin') {
-      this.utilitySer.navigateToWithData('admin/events-list/details', event);
-    } else {
-      this.utilitySer.navigateToWithData(this.isJoin() ? 'user/join-events/details' : 'user/events/details', event);
-    }
-  }
-
 
   public onExportData(): void {
     const doc = new jsPDF();

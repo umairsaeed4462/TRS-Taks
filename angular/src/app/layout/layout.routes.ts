@@ -9,50 +9,20 @@ export const LayoutRoutes: Routes = [
         loadComponent: () => import('../features/dashboard/dashboard.component').then(m => m.DashboardComponent)
     },
     {
-        path: 'user/events',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/users/users-events/users-events.component').then(m => m.UsersEventsComponent)
+        path: 'events',
+        loadComponent: () => import('../features/events/events.component').then(m => m.EventsComponent)
     },
     {
-        path: 'user/events/details',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
+        path: 'events/details',
+        loadComponent: () => import('../features/events/event-details/event-details.component').then(m => m.EventDetailsComponent)
     },
     {
-        path: 'user/join-events/details',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
-    },
-    
-    {
-        path: 'admin/events-list',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/admin/events/events.component').then(m => m.EventsComponent)
+        path: 'users',
+        loadComponent: () => import('../features/users/users.component').then(m => m.RolePermissionComponent)
     },
     {
-        path: 'admin/events-list/details',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
-    },
-    {
-        path: 'admin/role-permissions',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/admin/role-permission/role-permission.component').then(m => m.RolePermissionComponent)
-    },
-    {
-        path: 'admin/role-permissions/role-details',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/admin/role-permission/user-details/user-details.component').then(m => m.UserDetailsComponent)
-    },
-    {
-        path: 'user/join-events',
-        canActivate: [roleAuthGuard],
-        loadComponent: () => import('../features/users/join-events/join-events.component').then(m => m.JoinEventsComponent)
-    },
-    // {
-    //     path: '**',
-    //     redirectTo: 'dashboard',
-    //     pathMatch: 'full'
-    // }
+        path: 'users/details',
+        loadComponent: () => import('../features/users/user-details/user-details.component').then(m => m.UserDetailsComponent)
+    }
     
 ]

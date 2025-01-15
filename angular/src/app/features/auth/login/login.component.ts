@@ -27,7 +27,7 @@ export class LoginComponent {
   public onLogin(): void {
     this.isLoading.set(true);
     this.apiSer.onLogin({username: this.loginForm.value.username!, password: this.loginForm.value.password!}).subscribe({
-      next: (res: HttpResponseModel) => {
+      next: (res: HttpResponseModel) => { 
         this.isLoading.set(false);
         const user: UserModel = { ...res.data.user, token: res.data.token };
         this.localSer.setItem(LocalStorageKeys.USER_LOGIN, user);

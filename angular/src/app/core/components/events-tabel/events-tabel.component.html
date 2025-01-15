@@ -47,7 +47,7 @@
                     </ng-template>
 
                     <ng-template slot="actions" let-value="data">
-                        <div><app-button title="Details" size="sm" (click)="onEventDetails(value)" /></div>
+                        <div><app-button title="Details" size="sm" (click)="this.utilitySer.navigateToWithData('events/details', value);" /></div>
                     </ng-template>
 
                 </ng-datatable>

@@ -8,7 +8,7 @@ const onLogin = async (req, res) => {
     let { username, password } = req.body;
     try {
         if (username && password) {
-            const user = await userSchema.findOne({ username, password });
+            const user = await userSchema.findOne({ username, password }).populate('role');
             if (!user) {
                 return responseHandler(res, StatusCode.UNAUTHORIZED, 'Invalid credentials');
             } else {
@@ -27,9 +27,9 @@ const onLogin = async (req, res) => {
 
 // Register a new user
 const registerUser = async (req, res) => {
-    const { username, email, password, permissions } = req.body;
+    const { username, email, password, role } = req.body;
     try {
-        if (username && email && password && permissions) {
+        if (username && email && password && role) {
             // Check if user already exists
             const userExists = await userSchema.findOne({ username });
             if (userExists) {
@@ -50,10 +50,9 @@ const registerUser = async (req, res) => {
 };
 
 // get all users
-
 const getAllUsers = async (req, res) => {
     try {
-        const users = await userSchema.find();
+        const users = await userSchema.find().populate('role');
         return responseHandler(res, StatusCode.SUCCESS, 'Users fetched successfully', users);
     } catch (error) {
         console.error(error);
@@ -62,7 +61,6 @@ const getAllUsers = async (req, res) => {
 };
 
 // update role and permissions
-
 const updateUser = async (req, res) => {
     const { userID } = req.params;
     try {
@@ -78,7 +76,6 @@ const updateUser = async (req, res) => {
 };
 
 // delete a user
-
 const deleteUser = async (req, res) => {
     const { userID } = req.params;
     try {

@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <br><br><br><br>
+
+            <div class="nk-block">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title">Event Lists</h4>
+                        <div class="nk-block-des">
+                            <p>You have total {{eventList().length}} Events.</p>
+                        </div>
+                    </div>
+                   
+                    <div class="nk-block-head-content">
+                        <div class="toggle-wrap nk-block-tools-toggle">
+                            @if (true) {
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Add Event
+                            </button>
+                            }
+                        </div><!-- .toggle-wrap -->
+                    </div><!-- .nk-block-head-content -->
+                </div><!-- .nk-block-between -->
+            </div><!-- .nk-block-head -->
+
+            <div class="nk-block">
+                <app-events-tabel (onUpdate)="fetchUserEvents()" [isLoading]="isLoading()" [rows]="eventList()"></app-events-tabel>
+            </div><!-- .nk-block -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" #eventModel id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <app-event-model (onSave)="onAddEvent($event);"></app-event-model>
+        </div>
+    </div>
+</div>

@@ -8,12 +8,12 @@ import { EventsModel } from '../../models/events.model';
   providedIn: 'root'
 })
 export class EventApiService extends BaseApiService {
-  
+
   private readonly module: string = 'events';
   public dashboardReport(userID?: string): Observable<HttpResponseModel> {
-    if(userID){
+    if (userID) {
       return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/dashboardReport/${userID}`, this.httpOptions);
-    }else {
+    } else {
       return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/dashboardReport`, this.httpOptions);
     }
   }
@@ -30,7 +30,7 @@ export class EventApiService extends BaseApiService {
   public createNewEvent(event: EventsModel): Observable<HttpResponseModel> {
     return this.http.post<HttpResponseModel>(`${this.apiURL}/${this.module}/create`, event, this.httpOptions);
   }
-  public joinEvent(payload: {eventID: string, userID: string}): Observable<HttpResponseModel> {
+  public joinEvent(payload: { eventID: string, userID: string }): Observable<HttpResponseModel> {
     return this.http.post<HttpResponseModel>(`${this.apiURL}/${this.module}/join`, payload, this.httpOptions);
   }
 
@@ -44,5 +44,5 @@ export class EventApiService extends BaseApiService {
   public approvedEvent(eventID: string): Observable<HttpResponseModel> {
     return this.http.patch<HttpResponseModel>(`${this.apiURL}/${this.module}/approved/${eventID}`, this.httpOptions);
   }
-  
+
 }

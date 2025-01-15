@@ -14,3 +14,5 @@ export const USER_COLUMNS: Array<colDef> = [
     { field: "role", title: "Role" },
     { field: "actions", title: "Actions", sort: false, filter: false },
 ]
+
+export const DEFAULT_ROLE_ID = "6787e80c1083058f2bb3378e";

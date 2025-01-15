@@ -6,19 +6,22 @@
             <div class="nk-block">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h4 class="nk-block-title">Roles & Permissions</h4>
+                        <h4 class="nk-block-title">Users User</h4>
                         <div class="nk-block-des">
                             <p>You have total {{rows().length}} Roles.</p>
                         </div>
                     </div>
                     
                     <div class="nk-block-head-content">
-                        <div class="toggle-wrap nk-block-tools-toggle">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#exampleModal">
-                                Add Role
-                            </button>
-                        </div><!-- .toggle-wrap -->
+                        @if (userInfo()?.role?.permission?.user?.create) {
+                            <div class="toggle-wrap nk-block-tools-toggle">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    Add User
+                                </button>
+                            </div>
+                        }
+                        
                     </div><!-- .nk-block-head-content -->
                 </div><!-- .nk-block-between -->
             </div><!-- .nk-block-head -->
@@ -42,6 +45,9 @@
                                 nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'>
                 
                 
+                                <ng-template slot="role" let-value="data">
+                                    {{value.role.role  }}
+                                </ng-template>
                                 <ng-template slot="actions" let-value="data">
                                     <app-button size="sm"  title="Details" (click)="onUserDetails(value)"/>
                                 </ng-template>
@@ -63,51 +69,24 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{false? "Update Role": "Create New Role"}} </h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{false? "Update User": "Create New User"}} </h5>
                 <button #closeBtn type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <form [formGroup]="userForm" (ngSubmit)="onAddRole()" novalidate>
-                <div class="modal-body">
-
+                <div class="modal-body">                    
                     <app-input controlName="username" label="Username"></app-input>
                     <app-input controlName="email" label="Email"></app-input>
                     <div class="mb-3">
                         <label class="form-label">Role</label>
                         <select formControlName="role" class="form-select" >
-                            <option value="user" selected>User</option>
-                            <option value="admin">Admin</option>
+                            @for (item of roleList(); track $index) {
+                                <option [value]="item._id">{{item.role}}</option>
+                            }
+                            
                         </select>
-                    </div>
-
-                    <div class="mb-3" formGroupName="permissions">
-                        <label class="form-label">Permissions</label>
-                        <div class="form-check">
-                            <input formControlName="create" class="form-check-input" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Create
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input formControlName="delete" class="form-check-input" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Delete
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input formControlName="update" class="form-check-input" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Update
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input formControlName="join" class="form-check-input" type="checkbox" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Join
-                            </label>
-                        </div>
                     </div>
 
                 </div>

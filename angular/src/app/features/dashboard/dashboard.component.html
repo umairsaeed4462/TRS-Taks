@@ -25,25 +25,29 @@
             <div class="nk-block">
                 <div class="row g-gs">
                     
-                    @if (userInfo()?.role == 'admin') {
+                    @if (userInfo()?.role?.permission?.dashboard?.totalUser) {
                         <div class="col-xxl-3 col-sm-6">
                             <app-dashbaord-card title="Total User" [value]="reportData().totalUsers" />
                         </div>
                     }
+
+                    @if (userInfo()?.role?.permission?.dashboard?.totalEventJoins) {
+                        <div class="col-xxl-3 col-sm-6">
+                            <app-dashbaord-card title="Total Events" [value]="reportData().totalEvents" />
+                        </div>
+                    }
+                    @if (userInfo()?.role?.permission?.dashboard?.totalActiveEvent) {
+                        <div class="col-xxl-3 col-sm-6">
+                            <app-dashbaord-card title="Approved Events" [value]="reportData().totalApprovedEvents" />
+                        </div>
+                        
+                    }
+                    @if (userInfo()?.role?.permission?.dashboard?.totalPendingEvent) {
+                        <div class="col-xxl-3 col-sm-6">
+                            <app-dashbaord-card title="Pending Events" [value]="reportData().totalPendingEvents" />
+                        </div>
+                    }
                     
-                    <div class="col-xxl-3 col-sm-6">
-                        <app-dashbaord-card title="Total Events" [value]="reportData().totalEvents" />
-                    </div>
-                    
-                    <div class="col-xxl-3 col-sm-6">
-                        <app-dashbaord-card title="Pending Events" [value]="reportData().totalPendingEvents" />
-                    </div>
-                    <div class="col-xxl-3 col-sm-6">
-                        <app-dashbaord-card title="Approved Events" [value]="reportData().totalApprovedEvents" />
-                    </div>
-                    <div class="col-xxl-3 col-sm-6">
-                        <app-dashbaord-card title="Total Event Joining" [value]="reportData().totalAttendees" />
-                    </div>
                 </div><!-- .row -->
             </div><!-- .nk-block -->
         </div>

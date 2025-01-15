@@ -33,41 +33,46 @@
     <div class="nk-sidebar-main is-light">
         <div class="nk-sidebar-inner" data-simplebar>
             <div class="nk-menu-content menu-active" data-content="navDashboards">
-                <h5 class="title">{{userInfo()?.role}} Dashboards</h5>
+                <h5 class="title">{{userInfo()?.role?.role}} Dashboards</h5>
                         <ul class="nk-menu">
-                            <li class="nk-menu-item" routerLink="/dashboard" routerLinkActive="active" rout>
-                                <a class="nk-menu-link cursor-pointer">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
-                                    <span class="nk-menu-text">Dashboard</span>
-                                </a>
-                            </li>
-                            @if (userInfo()?.role == 'admin') {
-                                <li class="nk-menu-item" routerLink="admin/events-list" routerLinkActive="active">
+                            @if (userInfo()?.role?.permission?.dashboard?.view) {
+                                <li class="nk-menu-item" routerLink="/dashboard" routerLinkActive="active" rout>
+                                    <a class="nk-menu-link cursor-pointer">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                        <span class="nk-menu-text">Dashboard</span>
+                                    </a>
+                                </li>
+                            }
+                           
+                            @if (userInfo()?.role?.permission?.event?.view) {
+                                <li class="nk-menu-item" routerLink="events" routerLinkActive="active">
                                     <a  class="nk-menu-link cursor-pointer">
                                         <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
                                         <span class="nk-menu-text">Events</span>
                                     </a>
                                 </li>
-                                <li class="nk-menu-item" routerLink="admin/role-permissions" routerLinkActive="active">
+                            }
+                            
+                            @if (userInfo()?.role?.permission?.user?.view) {
+
+                                <li class="nk-menu-item" routerLink="users" routerLinkActive="active">
+                                    <a  class="nk-menu-link cursor-pointer">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Users</span>
+                                    </a>
+                                </li>
+                            }
+
+                            @if (userInfo()?.role?.permission?.role?.view) {
+                                <li class="nk-menu-item" routerLink="role-permissions" routerLinkActive="active">
                                     <a  class="nk-menu-link cursor-pointer">
                                         <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
                                         <span class="nk-menu-text">Roles & Permissions</span>
                                     </a>
                                 </li>
-                            }@else {
-                                <li class="nk-menu-item" routerLink="user/events" routerLinkActive="active">
-                                    <a  class="nk-menu-link cursor-pointer">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
-                                        <span class="nk-menu-text">Events</span>
-                                    </a>
-                                </li>
-                                <li class="nk-menu-item cursor-pointer"  routerLink="user/join-events" routerLinkActive="active">
-                                    <a class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
-                                        <span class="nk-menu-text">Join Events</span>
-                                    </a>
-                                </li>
                             }
+
+                            
                             
                         </ul>
             </div>

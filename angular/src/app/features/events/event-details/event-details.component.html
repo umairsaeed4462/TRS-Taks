@@ -13,35 +13,25 @@
                     </div>
                     
                     <div class="nk-block-head-content">
-                      @if (userInfo()?.role == 'admin') {
-                        @if (event()?.status == 'pending') {
+                        @if (event()?.status == 'pending' && userInfo()?.role?.permission?.event?.approved) {
                             <button data-toggle="modal" data-target="#approvedModal" style="margin-right: 4px;" class="btn btn-success" id="joinEventBtn">
                                 Approved Event
                             </button>
                         }
-                        <button data-toggle="modal" data-target="#editModal" style="margin-right: 4px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEventModal">
-                            Update Event
-                        </button>
-                        <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" id="deleteEventBtn">
-                            Delete Event
-                        </button>
-                      }@else {
-                        @if (userInfo()?._id == event()?.user['_id']) {
-                            <!-- Update Event Button -->
-                            @if (userInfo()?.permissions?.update) {
-                               <button data-toggle="modal" data-target="#editModal" style="margin-right: 4px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEventModal">
-                                   Update Event
-                               </button>
-                            }
-                           <!-- Delete Event Button -->
-                           @if (userInfo()?.permissions?.delete) {
-                               <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" id="deleteEventBtn">
-                                   Delete Event
-                               </button>
-                            }
-                           
-                          }
-                      }
+                        @if (userInfo()?.role?.permission?.event?.edit) {
+                            <button data-toggle="modal" data-target="#editModal" style="margin-right: 4px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEventModal">
+                                Update Event
+                            </button>
+                        }
+
+                        @if (userInfo()?.role?.permission?.event?.delete) {
+                            <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" id="deleteEventBtn">
+                                Delete Event
+                            </button>
+                        }
+                        
+                       
+                      
                     </div><!-- .nk-block-head-content -->
                 </div><!-- .nk-block-between -->
             </div><!-- .nk-block-head -->
@@ -72,7 +62,7 @@
                         }
                         
                         <!-- Join Event Button -->
-                         @if (!isUserJoined() && event()?.status != 'pending' && userInfo()?.permissions?.join ) {
+                         @if (!isUserJoined() && event()?.status != 'pending' &&  userInfo()?.role?.permission?.event?.join ) {
                             
                             <button data-toggle="modal" data-target="#joinModal" class="btn btn-success" id="joinEventBtn">
                                 Join Event

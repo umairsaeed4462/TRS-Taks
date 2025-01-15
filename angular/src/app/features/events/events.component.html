@@ -14,7 +14,7 @@
                    
                     <div class="nk-block-head-content">
                         <div class="toggle-wrap nk-block-tools-toggle">
-                            @if (userInfo()?.permissions?.create) {
+                            @if (true) {
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModal">
                                 Add Event
@@ -26,7 +26,7 @@
             </div><!-- .nk-block-head -->
 
             <div class="nk-block">
-                <app-events-tabel (onUpdate)="fetchUserEvents()" [isLoading]="isLoading()" [rows]="eventList()"></app-events-tabel>
+                <app-events-tabel (onUpdate)="fetchEvents()" [isLoading]="isLoading()" [rows]="eventList()"></app-events-tabel>
             </div><!-- .nk-block -->
         </div>
     </div>
