@@ -2,8 +2,10 @@ import { Routes } from '@angular/router';
 import { roleAuthGuard } from '../core/guards/role-auth.guard';
 
 export const LayoutRoutes: Routes = [
+    
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {
-        path: '',
+        path: 'dashboard',
         loadComponent: () => import('../features/dashboard/dashboard.component').then(m => m.DashboardComponent)
     },
     {
@@ -20,6 +22,11 @@ export const LayoutRoutes: Routes = [
         path: 'admin/events-list',
         canActivate: [roleAuthGuard],
         loadComponent: () => import('../features/admin/events/events.component').then(m => m.EventsComponent)
+    },
+    {
+        path: '**',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
     }
     
 ]

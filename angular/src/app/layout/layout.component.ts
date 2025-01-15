@@ -1,14 +1,15 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { UserModel } from '../core/models/user.model';
 import { LocalstorageService } from '../core/services/localstorage.service';
 import { LocalStorageKeys } from '../core/enums/core.enum';
+import { SideMenuComponent } from '../shared/components/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, SideMenuComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

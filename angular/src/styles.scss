@@ -2,3 +2,7 @@
 @import url('../public/css/dashlite.css');
 // regular style toast
 @import 'ngx-toastr/toastr';
+
+.cursor-pointer {
+    cursor:  pointer !important;
+}

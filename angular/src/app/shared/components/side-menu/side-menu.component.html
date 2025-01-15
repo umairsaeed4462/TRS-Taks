@@ -1,0 +1,70 @@
+<div class="nk-sidebar" data-content="sidebarMenu">
+    <div class="nk-sidebar-bar">
+        <div class="nk-apps-brand">
+            <a routerLink="/" class="logo-link">
+                <img class="logo-light logo-img" src="logo-small.png" srcset="logo-small2x.png 2x" alt="logo">
+                <img class="logo-dark logo-img" src="logo-dark-small.png" srcset="logo-dark-small2x.png 2x" alt="logo-dark">
+            </a>
+        </div>
+        <div class="nk-sidebar-element">
+            <div class="nk-sidebar-body">
+                <div class="nk-sidebar-content" data-simplebar>
+                    <div class="nk-sidebar-menu">
+                        
+                    </div>
+                    <div class="nk-sidebar-footer">
+                        
+                    </div>
+                </div>
+                <div class="nk-sidebar-profile nk-sidebar-profile-fixed">
+
+                    <div class="btn-group dropend">
+                        <div class="user-avatar dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <em class="icon ni ni-user-alt"></em>
+                        </div>
+                        <ul class="dropdown-menu">
+                         <app-user-menu></app-user-menu>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nk-sidebar-main is-light">
+        <div class="nk-sidebar-inner" data-simplebar>
+            <div class="nk-menu-content menu-active" data-content="navDashboards">
+                <h5 class="title">Dashboards</h5>
+                        <ul class="nk-menu">
+                            <li class="nk-menu-item" routerLink="/dashboard" routerLinkActive="active" rout>
+                                <a class="nk-menu-link cursor-pointer">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                    <span class="nk-menu-text">Dashboard</span>
+                                </a>
+                            </li>
+                            @if (userInfo()?.role == 'admin') {
+                                <li class="nk-menu-item" routerLink="admin/events-list" routerLinkActive="active">
+                                    <a  class="nk-menu-link cursor-pointer">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Events</span>
+                                    </a>
+                                </li>
+                            }@else {
+                                <li class="nk-menu-item" routerLink="user/events" routerLinkActive="active">
+                                    <a  class="nk-menu-link cursor-pointer">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Events</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item cursor-pointer"  routerLink="user/join-events" routerLinkActive="active">
+                                    <a class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                                        <span class="nk-menu-text">Join Events</span>
+                                    </a>
+                                </li>
+                            }
+                            
+                        </ul>
+            </div>
+        </div>
+    </div>
+</div>
