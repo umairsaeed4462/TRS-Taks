@@ -10,8 +10,12 @@ import { EventsModel } from '../../models/events.model';
 export class EventApiService extends BaseApiService {
   
   private readonly module: string = 'events';
-  public dashboardReport(): Observable<HttpResponseModel> {
-    return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/dashboardReport`, this.httpOptions);
+  public dashboardReport(userID?: string): Observable<HttpResponseModel> {
+    if(userID){
+      return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/dashboardReport/${userID}`, this.httpOptions);
+    }else {
+      return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}/dashboardReport`, this.httpOptions);
+    }
   }
   public getAllEvents(): Observable<HttpResponseModel> {
     return this.http.get<HttpResponseModel>(`${this.apiURL}/${this.module}`, this.httpOptions);

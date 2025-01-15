@@ -25,9 +25,12 @@
             <div class="nk-block">
                 <div class="row g-gs">
                     
-                    <div class="col-xxl-3 col-sm-6">
-                        <app-dashbaord-card title="Total User" [value]="reportData().totalUsers" />
-                    </div>
+                    @if (userInfo()?.role == 'admin') {
+                        <div class="col-xxl-3 col-sm-6">
+                            <app-dashbaord-card title="Total User" [value]="reportData().totalUsers" />
+                        </div>
+                    }
+                    
                     <div class="col-xxl-3 col-sm-6">
                         <app-dashbaord-card title="Total Events" [value]="reportData().totalEvents" />
                     </div>

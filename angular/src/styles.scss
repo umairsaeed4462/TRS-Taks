@@ -10,3 +10,23 @@
 * {
     text-transform: capitalize !important;
 }
+
+.bh-datatable .bh-table-responsive table tbody tr {
+    border: 1px solid !important;
+    border-color: #dbd2d2 !important;
+}
+
+.bh-datatable .bh-table-responsive table tbody tr td, .bh-datatable .bh-table-responsive table tfoot tr th, .bh-datatable .bh-table-responsive table thead tr th {
+    padding: 5px 1rem !important;
+    font-size: 0.8rem !important;
+}
+
+.bh-datatable .bh-table-responsive table tfoot tr, .bh-datatable .bh-table-responsive table thead tr {
+    border: 1px solid !important;
+    border-color: #dbd2d2 !important;
+    background-color: transparent !important;
+}
+
+.bh-datatable .bh-table-responsive table tfoot tr th, .bh-datatable .bh-table-responsive table thead tr th {
+    padding: 0.70rem 1rem !important;
+}

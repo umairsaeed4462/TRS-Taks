@@ -6,11 +6,12 @@
             <div class="nk-block">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h3 class="nk-block-title page-title">Event Details</h3>
-                        <div class="nk-block-des text-soft">
+                        <h4 class="nk-block-title">Event Details</h4>
+                        <div class="nk-block-des">
                             <p>Event Information & Actions</p>
                         </div>
-                    </div><!-- .nk-block-head-content -->
+                    </div>
+                    
                     <div class="nk-block-head-content">
                       @if (userInfo()?.role == 'admin') {
                         @if (event()?.status == 'pending') {
@@ -71,7 +72,7 @@
                         }
                         
                         <!-- Join Event Button -->
-                         @if (!isUserJoined() && event()?.status != 'pending' && userInfo()?.role != 'admin' ) {
+                         @if (!isUserJoined() && event()?.status != 'pending' && userInfo()?.permissions?.join ) {
                             
                             <button data-toggle="modal" data-target="#joinModal" class="btn btn-success" id="joinEventBtn">
                                 Join Event

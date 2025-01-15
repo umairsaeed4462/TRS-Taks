@@ -35,8 +35,7 @@ export class UserDetailsComponent {
 
   private apiSer: AuthApiService = inject(AuthApiService);
   private toaster: ToastrService = inject(ToastrService);
-  private utilitySer: UtilityService = inject(UtilityService);
-
+  
   public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('closeBtn');
   public deleteModel: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('deleteModel');
 

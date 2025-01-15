@@ -30,6 +30,11 @@ export const LayoutRoutes: Routes = [
         loadComponent: () => import('../features/admin/events/events.component').then(m => m.EventsComponent)
     },
     {
+        path: 'admin/events-list/details',
+        canActivate: [roleAuthGuard],
+        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
+    },
+    {
         path: 'admin/role-permissions',
         canActivate: [roleAuthGuard],
         loadComponent: () => import('../features/admin/role-permission/role-permission.component').then(m => m.RolePermissionComponent)

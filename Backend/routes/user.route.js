@@ -6,8 +6,8 @@ const authenticateToken = require('../middlewares/authenticate');
 router.route('/login').post(onLogin);
 router.route('/register').post(registerUser);
 router.route('/update/:userID').put(authenticateToken, updateUser);
-router.route('/').get(authenticateToken, getAllUsers);
-router.route('/deleteUser/:userID').delete(authenticateToken, deleteUser);
+router.route('/').get(getAllUsers);
+router.route('/deleteUser/:userID').delete( deleteUser);
 
 
 module.exports = router;

@@ -1,16 +1,16 @@
 import { colDef } from "@bhplugin/ng-datatable";
 
 export const EVENTS_COLUMNS: Array<colDef> = [
-    { field: "title", title: "Event Title", filter: false },
+    { field: "title", title: "Event Title", },
     { field: "date", title: "Date", type: "date" },
-    { field: "location", title: "Location", filter: true },
+    { field: "location", title: "Location" },
     { field: "status", title: "Status" },
-    { field: "actions", title: "Actions", sort: false },
+    { field: "actions", title: "Actions", sort: false, filter: false },
 ]
 
 export const USER_COLUMNS: Array<colDef> = [
-    { field: "username", title: "Username", filter: false },
+    { field: "username", title: "Username" },
     { field: "email", title: "Email" },
     { field: "role", title: "Role" },
-    { field: "actions", title: "Actions", sort: false },
+    { field: "actions", title: "Actions", sort: false, filter: false },
 ]

@@ -11,6 +11,7 @@ import { ButtonTypes } from '../../types/core.types';
 export class ButtonComponent {
   
   public title: InputSignal<string> = input.required<string>();
+  public size: InputSignal<'sm' | 'lg'> = input<'sm' | 'lg'>('lg');
   public disable: InputSignal<boolean> = input<boolean>(false);
   public isLoading: InputSignal<boolean> = input<boolean>(false);
   public type: InputSignal<ButtonTypes> = input<ButtonTypes>('button');
