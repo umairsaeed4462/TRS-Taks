@@ -1,9 +1,6 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { AuthApiService } from '../../../core/services/API\'s/auth-api.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignUPForm, UserModel } from '../../../core/models/user.model';
-import { HttpResponseModel } from '../../../core/models/core.model';
-import { UtilityService } from '../../../core/services/utility.service';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseAuthService } from '../../../core/services/firebase-auth.service';
 import { FirebaseError } from '@angular/fire/app';
@@ -32,12 +29,20 @@ export class SignupComponent {
   private firebaseSer: FirebaseAuthService = inject(FirebaseAuthService);
 
   public sendVerificationEmail(): void {
+
+    const payload: UserModel = {
+      username: this.signUpForm.value.username!,
+      email: this.signUpForm.value.email!,
+      password: this.signUpForm.value.password!,
+      role: 'user',
+      permissions: {create: true, update: true, delete: false, join: true}
+    }    
     this.isLoading.set(true);
-    this.firebaseSer.sendVerificationEmail((this.signUpForm.value as UserModel).email).then(()=>{
+    this.firebaseSer.sendVerificationEmail(payload.email).then(()=>{
       this.isLoading.set(false);
       this.isVerificationEmailSend.set(true);
       this.toastSer.success('Verification email sent');
-      this.localSer.setItem(LocalStorageKeys.VERIFY_EMAIL_DATA, this.signUpForm.value as UserModel);
+      this.localSer.setItem(LocalStorageKeys.VERIFY_EMAIL_DATA, payload);
       this.signUpForm.reset();
     }).catch((error: FirebaseError)=>{
       this.isLoading.set(false);

@@ -69,7 +69,7 @@ public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<E
   }
   public onJoinEvent(event: EventsModel): void {
     this.isSubLoading.set(true);
-    this.eventSer.joinEvent({eventID: event._id, userID: this.userInfo()!._id}).subscribe({
+    this.eventSer.joinEvent({eventID: event._id, userID: this.userInfo()!._id!}).subscribe({
       next: (res: HttpResponseModel) => {
         this.isSubLoading.set(false);
         this.toastSer.success(res.message);

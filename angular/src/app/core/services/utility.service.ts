@@ -1,15 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from '../enums/core.enum';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
 
-  private router: Router = inject(Router);
-  private modalService: NgbModal = inject(NgbModal);
+  private router: Router = inject(Router);;
 
   public navigateTo(link: string, replaceUrl: boolean = false): void {
     this.router.navigate([`/${link}`], { replaceUrl: replaceUrl });
@@ -19,13 +17,6 @@ export class UtilityService {
     this.router.navigate([`/${link}`], { state: { data }, replaceUrl: replaceUrl });
   }
 
-  public openModel(component: any) {
-    this.modalService.open(component)
-  }
-
-  public closeModel () {
-    this.modalService.dismissAll();
-  }
 
   public formatDateString(currentDate: string): string {
     const date = new Date(currentDate);

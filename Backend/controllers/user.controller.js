@@ -27,21 +27,16 @@ const onLogin = async (req, res) => {
 
 // Register a new user
 const registerUser = async (req, res) => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, permissions } = req.body;
     try {
-        if (username, email, password, role) {
+        if (username && email && password && permissions) {
             // Check if user already exists
             const userExists = await userSchema.findOne({ username });
             if (userExists) {
                 return responseHandler(res, StatusCode.BAD_REQUEST, 'username already exists');
             }
-            // Create new user
-            const newUser = new userSchema({
-                username,
-                email,
-                role,
-                password
-            });
+            // Create new user;
+            const newUser = new userSchema(req.body);
             await newUser.save();
 
             return responseHandler(res, StatusCode.CREATED, 'User registered successfully', newUser);
@@ -54,7 +49,54 @@ const registerUser = async (req, res) => {
     }
 };
 
+// get all users
+
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await userSchema.find();
+        return responseHandler(res, StatusCode.SUCCESS, 'Users fetched successfully', users);
+    } catch (error) {
+        console.error(error);
+        return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+    }
+};
+
+// update role and permissions
+
+const updateUser = async (req, res) => {
+    const { userID } = req.params;
+    try {
+        const updatedUser = await userSchema.findByIdAndUpdate(userID, req.body, { new: true });
+        if (!updatedUser) {
+            return responseHandler(res, StatusCode.NOT_FOUND, 'User not found');
+        }
+        return responseHandler(res, StatusCode.SUCCESS, 'User updated successfully', updatedUser);
+    } catch (error) {
+        console.error(error);
+        return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+    }
+};
+
+// delete a user
+
+const deleteUser = async (req, res) => {
+    const { userID } = req.params;
+    try {
+        const deletedUser = await userSchema.findByIdAndDelete(userID);
+        if (!deletedUser) {
+            return responseHandler(res, StatusCode.NOT_FOUND, 'User not found');
+        }
+        return responseHandler(res, StatusCode.SUCCESS, 'User deleted successfully', deletedUser);
+    } catch (error) {
+        console.error(error);
+        return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+    }
+};
+
 module.exports = {
     onLogin,
-    registerUser
+    registerUser,
+    updateUser,
+    getAllUsers,
+    deleteUser
 };

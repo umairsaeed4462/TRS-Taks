@@ -5,7 +5,6 @@ import { EventsTabelComponent } from '../../../core/components/events-tabel/even
 import { ButtonComponent } from '../../../core/components/button/button.component';
 import { UtilityService } from '../../../core/services/utility.service';
 import { EventModelComponent } from '../../../shared/components/event-model/event-model.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventApiService } from '../../../core/services/API\'s/event-api.service';
 import { HttpResponseModel } from '../../../core/models/core.model';
 import { LocalstorageService } from '../../../core/services/localstorage.service';
@@ -40,7 +39,7 @@ export class UsersEventsComponent implements OnInit {
     const user: UserModel | null = this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN);
     if (!user) return;
     this.isLoading.set(true);
-    this.eventSer.getUsersEvents(user._id).subscribe({
+    this.eventSer.getUsersEvents(user._id!).subscribe({
       next: (res: HttpResponseModel) => {
         this.isLoading.set(false);
         this.eventList.set(res.data);
@@ -53,7 +52,7 @@ export class UsersEventsComponent implements OnInit {
 
     const user: UserModel | null = this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN);
     if (!user) return;
-    event.user = user._id;
+    event.user = user._id!;
     event.status = 'pending';
     event.attendees = [];
     this.isLoading.set(true);
