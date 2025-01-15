@@ -23,6 +23,14 @@ export const LayoutRoutes: Routes = [
     {
         path: 'users/details',
         loadComponent: () => import('../features/users/user-details/user-details.component').then(m => m.UserDetailsComponent)
+    },
+    {
+        path: 'role-permissions',
+        loadComponent: () => import('../features/role-permissions/role-permissions.component').then(m => m.RolePermissionsComponent)
+    },
+    {
+        path: 'role-permissions/create',
+        loadComponent: () => import('../features/role-permissions/create-role/create-role.component').then(m => m.CreateRoleComponent)
     }
     
 ]
