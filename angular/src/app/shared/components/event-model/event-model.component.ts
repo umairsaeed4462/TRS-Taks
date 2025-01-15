@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../../core/components/button/button.componen
 import { InputComponent } from '../../../core/components/input/input.component';
 import { EventForm, EventsModel } from '../../../core/models/events.model';
 import { UtilityService } from '../../../core/services/utility.service';
+import { pastDateValidator } from '../../../core/validators/past-date-not-alllow';
 
 @Component({
   selector: 'app-event-model',
@@ -12,7 +13,7 @@ import { UtilityService } from '../../../core/services/utility.service';
   templateUrl: './event-model.component.html',
   styleUrl: './event-model.component.scss'
 })
-export class EventModelComponent {
+export class EventModelComponent implements AfterViewInit {
 
   public eventDetail: InputSignal<EventsModel | null> = input<EventsModel | null>(null);
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
@@ -21,7 +22,7 @@ export class EventModelComponent {
     title: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    date: new FormControl('', Validators.required)
+    date: new FormControl('', [Validators.required, pastDateValidator()])
   });
 
   public onSave: OutputEmitterRef<EventsModel> = output<EventsModel>();
@@ -36,6 +37,10 @@ export class EventModelComponent {
         this.updateView();
       }
     })
+  }
+
+  public ngAfterViewInit(): void {
+    this.eventForm.get('date')?.setValue(this.utilitySer.formatDateString((new Date()).toISOString()));
   }
 
   public updateView(): void {

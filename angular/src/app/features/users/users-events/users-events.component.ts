@@ -23,6 +23,7 @@ export class UsersEventsComponent implements OnInit {
 
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
   public eventList: WritableSignal<EventsModel[]> = signal<EventsModel[]>([]);
+  public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
 
   private utilitySer: UtilityService = inject(UtilityService);
   private localSer: LocalstorageService = inject(LocalstorageService);
@@ -33,6 +34,11 @@ export class UsersEventsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.fetchUserEvents();
+    this.getUserInfo();
+  }
+
+  private async getUserInfo(): Promise<void> {
+    this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
   }
 
   public fetchUserEvents(): void {

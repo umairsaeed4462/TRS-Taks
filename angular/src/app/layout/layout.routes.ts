@@ -13,9 +13,14 @@ export const LayoutRoutes: Routes = [
         loadComponent: () => import('../features/users/users-events/users-events.component').then(m => m.UsersEventsComponent)
     },
     {
-        path: 'user/join-events',
-        loadComponent: () => import('../features/users/join-events/join-events.component').then(m => m.JoinEventsComponent)
+        path: 'user/events/details',
+        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
     },
+    {
+        path: 'user/join-events/details',
+        loadComponent: () => import('../features/users/users-events/event-details/event-details.component').then(m => m.EventDetailsComponent)
+    },
+    
     {
         path: 'admin/events-list',
         loadComponent: () => import('../features/admin/events/events.component').then(m => m.EventsComponent)
@@ -27,6 +32,10 @@ export const LayoutRoutes: Routes = [
     {
         path: 'admin/role-permissions/role-details',
         loadComponent: () => import('../features/admin/role-permission/user-details/user-details.component').then(m => m.UserDetailsComponent)
+    },
+    {
+        path: 'user/join-events',
+        loadComponent: () => import('../features/users/join-events/join-events.component').then(m => m.JoinEventsComponent)
     },
     // {
     //     path: '**',

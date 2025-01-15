@@ -13,10 +13,12 @@
                     </div><!-- .nk-block-head-content -->
                     <div class="nk-block-head-content">
                         <div class="toggle-wrap nk-block-tools-toggle">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            @if (userInfo()?.permissions?.create) {
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModal">
                                 Add Event
                             </button>
+                            }
                         </div><!-- .toggle-wrap -->
                     </div><!-- .nk-block-head-content -->
                 </div><!-- .nk-block-between -->

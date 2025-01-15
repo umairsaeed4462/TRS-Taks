@@ -7,7 +7,7 @@ export interface EventsModel {
     description: string,
     date: string,
     location: string,
-    user: string | UserModel,
+    user: UserModel | string | any,
     status: 'pending' | 'approved',
     attendees: UserModel[],
 }
