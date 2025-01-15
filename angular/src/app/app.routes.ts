@@ -7,10 +7,12 @@ export const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
+        canActivate: [authGuard],
         children: LayoutRoutes
     },
     {
         path: 'auth',
+        canActivate: [authGuard],
         loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
     }
 ];
