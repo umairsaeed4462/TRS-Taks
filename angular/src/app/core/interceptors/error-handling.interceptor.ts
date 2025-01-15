@@ -13,8 +13,7 @@ export const errorHandlingInterceptor: HttpInterceptorFn = (req, next) => {
     token = JSON.parse(local).token; 
   }
   // Clone the request to add the Authorization header if needed
-  const isAuthEndpoint: boolean = req.url.includes('/auth');
-  const modifiedReq: HttpRequest<any> = isAuthEndpoint ? req : req.clone({
+  const modifiedReq: HttpRequest<any> = req.clone({
     setHeaders: { Authorization: token }
   });
 

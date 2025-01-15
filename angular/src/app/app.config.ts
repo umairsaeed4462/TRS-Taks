@@ -13,7 +13,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
     provideAnimations(),
-    provideToastr(),
+    provideToastr({
+      positionClass: 'toast-top-right',
+    }),
     provideHttpClient(
       withInterceptors([errorHandlingInterceptor]),
     ),

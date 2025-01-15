@@ -5,6 +5,8 @@ import { EventApiService } from '../../core/services/API\'s/event-api.service';
 import { UserModel } from '../../core/models/user.model';
 import { LocalstorageService } from '../../core/services/localstorage.service';
 import { LocalStorageKeys } from '../../core/enums/core.enum';
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,5 +56,30 @@ export class DashboardComponent implements OnInit {
     
     
   }
+
+  public onExportData(): void {
+      const doc = new jsPDF();
+  
+      // Add title to the PDF
+      doc.text("Report", 14, 10);
+  
+      // Define the table headers and data
+      const headers = ["Total Events", "Pending Events", "Approved Events", "Total Event Joining"];
+      const data = [
+        [this.reportData().totalEvents, this.reportData().totalPendingEvents, this.reportData().totalApprovedEvents, this.reportData().totalAttendees]
+      ];
+  
+      // Add the table to the PDF
+      (doc as any).autoTable({
+        head: [headers],
+        body: data,
+        startY: 15,
+        theme: 'grid',
+        
+      });
+  
+      // Save the PDF
+      doc.save(`Report-${Date.now()}.pdf`);
+    }
 
 }

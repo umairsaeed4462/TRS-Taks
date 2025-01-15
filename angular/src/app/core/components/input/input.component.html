@@ -1,11 +1,11 @@
 <div class="mb-3">
     <label [for]="label()" class="form-label">{{label()}}</label>
     @if(isTextArea()) {
-        <textarea class="form-control" [formControlName]="controlName()" [placeholder]="placeholder()" [readonly]="disable()" [class.is-invalid]="fc.invalid && fc.touched"></textarea>
+        <textarea class="form-control" style="text-transform: none !important;" [formControlName]="controlName()" [placeholder]="placeholder()" [readonly]="disable()" [class.is-invalid]="fc.invalid && fc.touched"></textarea>
     }@else {
     @if (type() == 'password') {
     <div class="input-group mb-3">
-        <input [readonly]="disable()" [class.is-invalid]="fc.invalid && fc.touched"
+        <input style="text-transform: none !important;" [readonly]="disable()" [class.is-invalid]="fc.invalid && fc.touched"
             [type]="hide() ? 'password' : 'text'" id="field" [formControlName]="controlName()"
             (blur)="updateErrorMessage()" class="form-control" [id]="label()" [placeholder]="placeholder()">
         <span class="input-group-text" id="basic-addon2" (click)="hide.set(!hide())">
@@ -28,7 +28,7 @@
     </div>
 
     }@else {
-    <input [class.is-invalid]="fc.invalid && fc.touched" [readonly]="disable()" [type]="type()" id="field"
+    <input style="text-transform: none !important;" [class.is-invalid]="fc.invalid && fc.touched" [readonly]="disable()" [type]="type()" id="field"
         [formControlName]="controlName()" class="form-control" [id]="label()" [placeholder]="placeholder()">
     }
     }
