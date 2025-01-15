@@ -63,7 +63,9 @@ export class RolePermissionComponent implements OnInit {
           update: true,
           join: true
         });
+        this.userForm.controls['permissions']?.disable();
       } else {
+        this.userForm.controls['permissions']?.enable();
         this.userForm.get('permissions')?.patchValue({
           create: true,
           delete: false,
@@ -71,15 +73,20 @@ export class RolePermissionComponent implements OnInit {
           join: true
         })
       }
-    })
+    });
+    this.searchField.valueChanges.subscribe((value: string) => {
+      this.searchValue.set(value);
+    });
   }
 
   private async getUserInfo(): Promise<void> {
     this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
   }
 
+
   public onAddRole(): void {
     this.isSubLoading.set(true);
+    this.userForm.controls['permissions']?.enable();
     this.apiSer.onSignUp(this.userForm.value as UserModel).subscribe({
       next: (res: HttpResponseModel) => {
         this.isSubLoading.set(false);

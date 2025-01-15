@@ -1,4 +1,4 @@
-import "./chunk-IOKE4NQZ.js";
+import "./chunk-NFNYZ4GQ.js";
 import {
   FIREBASE_APP_NAME,
   FIREBASE_OPTIONS,
@@ -14,7 +14,7 @@ import {
   ɵgetDefaultInstanceOf,
   ɵlazySDKProxy,
   ɵzoneWrap
-} from "./chunk-R2NT3PNQ.js";
+} from "./chunk-6VOJIKOV.js";
 import {
   Component,
   Deferred,
@@ -36,10 +36,10 @@ import {
   registerVersion,
   setLogLevel,
   uuidv4
-} from "./chunk-B5V7HTP7.js";
+} from "./chunk-PMRK2TDO.js";
 import {
   isPlatformServer
-} from "./chunk-OAHCBUR4.js";
+} from "./chunk-OSAOC7OE.js";
 import {
   Inject,
   Injectable,
@@ -54,7 +54,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-N5UVKPCQ.js";
+} from "./chunk-IB3M3BS4.js";
 import {
   Observable,
   Subject,
@@ -72,10 +72,11 @@ import {
   switchMap,
   switchMapTo,
   timer
-} from "./chunk-UNIGH4BT.js";
+} from "./chunk-D6KKAYXW.js";
+import "./chunk-IYEYSCYL.js";
 import {
   __async
-} from "./chunk-FVETPLIC.js";
+} from "./chunk-QAWDIRWS.js";
 
 // node_modules/@angular/fire/fesm2022/angular-fire-app.mjs
 var FirebaseApp = class {
@@ -1070,7 +1071,7 @@ var AngularFireAuth = class _AngularFireAuth {
   credential;
   constructor(options, name2, platformId, zone, schedulers, useEmulator, settings, tenantId, languageCode, useDeviceLanguage, persistence, _appCheckInstances) {
     const logins = new Subject();
-    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-FWEEQLOO.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
+    const auth = of(void 0).pipe(observeOn(schedulers.outsideAngular), switchMap(() => zone.runOutsideAngular(() => import("./index.esm-JLE4QSI2.js"))), map(() => ɵfirebaseAppFactory(options, zone, name2)), map((app) => ɵauthFactory(app, zone, useEmulator, tenantId, languageCode, useDeviceLanguage, settings, persistence)), shareReplay({
       bufferSize: 1,
       refCount: false
     }));

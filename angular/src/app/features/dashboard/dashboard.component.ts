@@ -37,11 +37,21 @@ export class DashboardComponent implements OnInit {
   }
 
   public fetchDashboardReport(): void {
+    if(this.userInfo()?.role == 'admin') {
+      this.eventSer.dashboardReport().subscribe({
+        next: (res: HttpResponseModel) => {
+          this.reportData.set(res.data);
+        }
+      })
+      return;
+    }
+
     this.eventSer.dashboardReport(this.userInfo()?._id).subscribe({
       next: (res: HttpResponseModel) => {
         this.reportData.set(res.data);
       }
     })
+    
     
   }
 

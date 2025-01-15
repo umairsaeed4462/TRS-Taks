@@ -2,7 +2,7 @@ import {
   firebase,
   getApps,
   registerVersion
-} from "./chunk-B5V7HTP7.js";
+} from "./chunk-PMRK2TDO.js";
 import {
   Inject,
   Injectable,
@@ -19,7 +19,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-N5UVKPCQ.js";
+} from "./chunk-IB3M3BS4.js";
 import {
   Observable,
   asyncScheduler,
@@ -27,7 +27,7 @@ import {
   queueScheduler,
   subscribeOn,
   tap
-} from "./chunk-UNIGH4BT.js";
+} from "./chunk-D6KKAYXW.js";
 
 // node_modules/@angular/fire/node_modules/firebase/app/dist/esm/index.esm.js
 var name = "firebase";
@@ -444,4 +444,4 @@ firebase/compat/app/dist/esm/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-R2NT3PNQ.js.map
+//# sourceMappingURL=chunk-6VOJIKOV.js.map

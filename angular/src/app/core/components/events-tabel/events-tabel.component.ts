@@ -10,6 +10,10 @@ import { UserModel } from '../../models/user.model';
 import { LocalStorageKeys } from '../../enums/core.enum';
 import { DatePipe } from '@angular/common';
 import { UtilityService } from '../../services/utility.service';
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
+
+
 
 @Component({
   selector: 'app-events-tabel',
@@ -50,11 +54,50 @@ export class EventsTabelComponent implements OnInit {
   }
 
   public onEventDetails(event: EventsModel): void {
-    if(this.userInfo()?.role == 'admin') {
+    if (this.userInfo()?.role == 'admin') {
       this.utilitySer.navigateToWithData('admin/events-list/details', event);
-    }else{
-      this.utilitySer.navigateToWithData(this.isJoin()? 'user/join-events/details':'user/events/details', event);   
+    } else {
+      this.utilitySer.navigateToWithData(this.isJoin() ? 'user/join-events/details' : 'user/events/details', event);
     }
+  }
+
+
+  public onExportData(): void {
+    const doc = new jsPDF();
+
+    // Add title to the PDF
+    doc.text("Events List", 14, 10);
+
+    // Define the table headers and data
+    const headers = ["Title", "Date", "Location", "Status"];
+    const data = this.getEventData();
+
+    // Add the table to the PDF
+    (doc as any).autoTable({
+      head: [headers],
+      body: data,
+      startY: 15,
+      theme: 'grid',
+      
+    });
+
+    // Save the PDF
+    doc.save(`Event-${Date.now()}.pdf`);
+  }
+
+
+  private getEventData(): string[][] {
+    const data: string[][] = [];
+    this.rows().forEach((event: EventsModel) => {
+      const rowData: string[] = [
+        event.title,
+        event.date,
+        event.location,
+        event.status
+      ];
+      data.push(rowData);
+    })
+    return data;
   }
 
 

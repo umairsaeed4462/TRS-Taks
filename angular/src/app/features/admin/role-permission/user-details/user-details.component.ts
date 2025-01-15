@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Signal, signal, viewChild, WritableSignal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, Signal, signal, viewChild, WritableSignal } from '@angular/core';
 import { SignUPForm, UserModel } from '../../../../core/models/user.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
@@ -14,7 +14,7 @@ import { UtilityService } from '../../../../core/services/utility.service';
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })
-export class UserDetailsComponent {
+export class UserDetailsComponent implements OnInit {
 
   public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
@@ -43,11 +43,34 @@ export class UserDetailsComponent {
     this.userInfo.set(history.state.data);
   }
 
+  public ngOnInit(): void {
+    this.userForm.get('role')?.valueChanges.subscribe((value) => {
+      if (value === 'admin') {
+        this.userForm.get('permissions')?.patchValue({
+          create: true,
+          delete: true,
+          update: true,
+          join: true
+        });
+        this.userForm.controls['permissions']?.disable();
+      } else {
+        this.userForm.controls['permissions']?.enable();
+        this.userForm.get('permissions')?.patchValue({
+          create: true,
+          delete: false,
+          update: true,
+          join: true
+        })
+      }
+    });
+  }
+
   public onUpdateClick(): void {
     this.userForm.patchValue(this.userInfo()!);
   }
 
   public onUpdateRole(): void {
+    this.userForm.controls['permissions']?.enable();
     const payload: UserModel = {...this.userForm.value as UserModel};
     payload._id = this.userInfo()?._id;
     payload.password = this.userInfo()!.password;

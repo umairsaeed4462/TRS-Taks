@@ -25,12 +25,14 @@ import {
   querystring,
   querystringDecode,
   registerVersion
-} from "./chunk-B5V7HTP7.js";
+} from "./chunk-PMRK2TDO.js";
+import {
+  __rest
+} from "./chunk-IYEYSCYL.js";
 import {
   __async,
-  __rest,
   __superGet
-} from "./chunk-FVETPLIC.js";
+} from "./chunk-QAWDIRWS.js";
 
 // node_modules/@angular/fire/node_modules/@firebase/auth/dist/esm2017/index-68602d24.js
 var ProviderId = {
@@ -9564,4 +9566,4 @@ registerAuthCompat(firebase);
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-IOKE4NQZ.js.map
+//# sourceMappingURL=chunk-NFNYZ4GQ.js.map
