@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row justify-content-center login-container">
+      <div class="col-md-4">
+        <div class="login-form">
+          <h3 class="login-header">Login</h3>
+          <!-- Login Form Start -->
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()" novalidate>
+            <!-- Username Field -->
+            <app-input controlName="username" label="Username"></app-input>
+            <app-input controlName="password" type="password" label="Password"></app-input>
+            <!-- Login Button -->
+            <app-button title="Login" type="submit" [disable]="loginForm.invalid" [isLoading]="isLoading()"></app-button>
+          </form>
+          <!-- Login Form End -->
+          
+          <!-- Sign Up Link -->
+          <div class="signup-link">
+            <p>Don't have an account? <a routerLink="/auth/signup" id="signup-link">Sign up as a User</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

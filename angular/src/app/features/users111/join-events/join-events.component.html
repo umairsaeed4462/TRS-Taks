@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <br><br><br><br>
+            <div class="nk-block">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title">Available Events List</h4>
+                        <div class="nk-block-des">
+                            <p>You have total {{eventList().length}} Events.</p>
+                        </div>
+                    </div>
+                    
+                </div><!-- .nk-block-between -->
+            </div><!-- .nk-block-head -->
+
+            <div class="nk-block">
+                <app-events-tabel [isJoin]="true" (onUpdate)="fetchActiveEvents()" [isLoading]="isLoading()"
+                    [rows]="eventList()"></app-events-tabel>
+            </div><!-- .nk-block -->
+        </div>
+    </div>
+</div>

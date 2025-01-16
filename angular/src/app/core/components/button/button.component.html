@@ -1,0 +1,9 @@
+<button [type]="type()" [disabled]="disable()" class="btn btn-primary" [class.btn-sm]="size() == 'sm'">
+ <ng-content></ng-content>
+ {{title() }} 
+ @if (isLoading()) {
+    <div class="spinner-border spinner-border-sm text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+ }   
+</button>

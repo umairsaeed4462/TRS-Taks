@@ -1,0 +1,143 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <br><br><br>
+
+            <div class="nk-block">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title">Event Details</h4>
+                        <div class="nk-block-des">
+                            <p>Event Information & Actions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="nk-block-head-content">
+                      @if (true) {
+                        @if (event()?.status == 'pending') {
+                            <button data-toggle="modal" data-target="#approvedModal" style="margin-right: 4px;" class="btn btn-success" id="joinEventBtn">
+                                Approved Event
+                            </button>
+                        }
+                        <button data-toggle="modal" data-target="#editModal" style="margin-right: 4px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEventModal">
+                            Update Event
+                        </button>
+                        <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" id="deleteEventBtn">
+                            Delete Event
+                        </button>
+                      }@else {
+                        @if (userInfo()?._id == event()?.user['_id']) {
+                            <!-- Update Event Button -->
+                            <!-- @if (userInfo()?.permissions?.update) {
+                               <button data-toggle="modal" data-target="#editModal" style="margin-right: 4px;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEventModal">
+                                   Update Event
+                               </button>
+                            } -->
+                           <!-- Delete Event Button -->
+                           <!-- @if (userInfo()?.permissions?.delete) {
+                               <button data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" id="deleteEventBtn">
+                                   Delete Event
+                               </button>
+                            } -->
+                           
+                          }
+                      }
+                    </div><!-- .nk-block-head-content -->
+                </div><!-- .nk-block-between -->
+            </div><!-- .nk-block-head -->
+
+            <!-- Event Details Card -->
+            <div class="nk-block">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event()?.title }}</h5>
+                        <p class="card-text"><strong>Description:</strong> {{ event()?.description }}</p>
+                        <p class="card-text"><strong>Location:</strong> {{ event()?.location }}</p>
+                        <p class="card-text"><strong>Date:</strong> {{ event()?.date | date: 'short' }}</p>
+                        <p class="card-text"><strong>Event Status:</strong> {{ event()?.status | titlecase }}</p>
+                        <p><strong>Organizer:</strong> {{ (event()?.user)?.username }}</p>
+
+                        <!-- Attendees List -->
+                        
+                        @if(event()?.attendees?.length) {
+                            <h6>Attendees:</h6>
+                            <ul class="list-group">
+                                @for (attendee of event()?.attendees; track $index) {
+                                    <li class="list-group-item">
+                                        {{ attendee.username }} ({{ attendee.email }})
+                                    </li>
+                                }
+                                
+                            </ul><br>
+                        }
+                        
+                        <!-- Join Event Button -->
+                         @if (!isUserJoined() && event()?.status != 'pending' && true ) {
+                            
+                            <button data-toggle="modal" data-target="#joinModal" class="btn btn-success" id="joinEventBtn">
+                                Join Event
+                            </button>
+                         }
+                        
+                    </div>
+                </div>
+            </div><!-- .nk-block -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Event</h5>
+                <p>Are you sure you want to delete this event?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #deleteModel data-dismiss="modal">Cancel</button>
+                <app-button title="Delete" (click)="onDeleteEvent()" [isLoading]="isSubLoading()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="approvedModal" tabindex="-1" role="dialog" aria-labelledby="approvedModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="approvedModalLabel">Approved Event</h5>
+                <p>Are you sure you want to approved this event?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #approvedClose data-dismiss="modal">Cancel</button>
+                <app-button title="Approved" (click)="onApproved()" [isLoading]="isSubLoading()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <app-event-model (onSave)="onEditEvent($event)" [eventDetail]="event()" />
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="deleteModalLabel">Join Event</h5>
+                <p>Are you sure you want to Join this event?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #joinModel data-dismiss="modal">Cancel</button>
+                <app-button title="Join" (click)="onJoinEvent()" [isLoading]="isSubLoading()" />
+            </div>
+        </div>
+    </div>
+</div>
