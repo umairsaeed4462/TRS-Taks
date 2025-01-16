@@ -10,7 +10,7 @@
         <app-input controlName="title" label="title"></app-input>
         <app-input [textarea]="true" controlName="description" label="description"></app-input>
         <app-input controlName="location" label="location"></app-input>
-        <app-select-option controlName="category" [options]="getCategories()" />
+        <app-select-option controlName="category" label="Category" [options]="getCategories()" />
         @if (!isAddCategory()) {<div class="d-flex justify-content-end category-btn"><a
                 (click)="isAddCategory.set(true)">Add Category</a></div>}
         @else {
