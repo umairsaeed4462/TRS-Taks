@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
   date: Date,
   location: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
   status: { type: String, enum: ['pending', 'approved'], default: 'pending' },
   attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });

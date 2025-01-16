@@ -13,11 +13,12 @@ import { HttpResponseModel } from '../../core/models/core.model';
 import { LocalStorageKeys } from '../../core/enums/core.enum';
 import { RoleApiService } from '../../core/services/API\'s/role-api.service';
 import { Role } from '../../core/models/role.model';
+import { Options, SelectOptionComponent } from '../../core/components/select-option/select-option.component';
 
 @Component({
   selector: 'app-role-permission',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, ButtonComponent, DataTableModule],
+  imports: [ReactiveFormsModule, InputComponent, SelectOptionComponent, ButtonComponent, DataTableModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -38,7 +39,7 @@ export class RolePermissionComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('1122'),
     cPassword: new FormControl('1122'),
-    role: new FormControl(DEFAULT_ROLE_ID),
+    role: new FormControl('', Validators.required),
     
   });
 
@@ -94,6 +95,10 @@ export class RolePermissionComponent implements OnInit {
 
   public onUserDetails(user: UserModel) : void {
     this.utilitySer.navigateToWithData('users/details', user);
+  }
+
+  public getOptions(): Options[] {
+    return this.roleList()?.map((item: Role) => ({ _id: item._id, label: item.role }));
   }
 
 

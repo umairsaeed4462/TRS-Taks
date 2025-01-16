@@ -4,19 +4,19 @@ const { createRole, getAllRolesDetails, getAllRoles, getRoleById, updateRole, de
 const authenticateToken = require('../middlewares/authenticate');
 
 // Create a role
-router.route('/create').post(createRole);
+router.route('/create').post(authenticateToken, createRole);
 
 // Get all roles
-router.route('/').get(getAllRoles);
-router.route('/details').get(getAllRolesDetails);
+router.route('/').get(authenticateToken, getAllRoles);
+router.route('/details').get(authenticateToken, getAllRolesDetails);
 
 // Get role by ID
-router.route('/:id').get(getRoleById);
+router.route('/:id').get(authenticateToken, getRoleById);
 
 // Update a role
-router.route('/:id').put(updateRole);
+router.route('/:id').put(authenticateToken, updateRole);
 
 // Delete a role
-router.route('/:id').delete(deleteRole);
+router.route('/:id').delete(authenticateToken,deleteRole);
 
 module.exports = router;

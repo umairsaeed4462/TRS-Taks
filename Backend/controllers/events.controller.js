@@ -22,7 +22,7 @@ const createEvent = async (req, res) => {
 // Get all events
 const getAllEvents = async (req, res) => {
     try {
-        const events = await eventSchema.find().populate('user attendees', 'username email');
+        const events = await eventSchema.find().populate('user attendees category', 'username email title');
         return responseHandler(res, StatusCode.SUCCESS, 'Events retrieved successfully', events);
     } catch (error) {
         console.error(error);
@@ -62,7 +62,7 @@ const updateEvent = async (req, res) => {
     try {
         const updatedEvent = await eventSchema.findByIdAndUpdate(
             eventId,
-            { title, description, date, location, status, attendees },
+            req.body,
             { new: true }
         );
         if (!updatedEvent) {

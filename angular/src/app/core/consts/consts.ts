@@ -4,6 +4,7 @@ export const EVENTS_COLUMNS: Array<colDef> = [
     { field: "title", title: "Event Title", },
     { field: "date", title: "Date", type: "date" },
     { field: "location", title: "Location" },
+    { field: "category", title: "Category" },
     { field: "status", title: "Status" },
     { field: "actions", title: "Actions", sort: false, filter: false },
 ]

@@ -86,16 +86,7 @@
                 <div class="modal-body">                    
                     <app-input controlName="username" label="Username"></app-input>
                     <app-input controlName="email" label="Email"></app-input>
-                    <div class="mb-3">
-                        <label class="form-label">Role</label>
-                        <select formControlName="role" class="form-select" >
-                            @for (item of roleList(); track $index) {
-                                <option [value]="item._id">{{item.role}}</option>
-                            }
-                            
-                        </select>
-                    </div>
-
+                    <app-select-option controlName="role" label="Role" [options]="getOptions()" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" #closeBtn data-dismiss="modal">Close</button>

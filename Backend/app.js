@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8028;
 const user_routes = require("./routes/user.route");
 const event_routes = require("./routes/event.route");
 const role_routes = require("./routes/role.route");
+const category_routes = require("./routes/category.route");
 
 
 // Create Express app
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 app.use("/api/auth", user_routes);
 app.use("/api/events", event_routes);
 app.use("/api/role", role_routes);
+app.use("/api/category", category_routes);
 
 
 // GET API to serve an image by filename

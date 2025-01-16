@@ -1,5 +1,6 @@
 import { FormControl } from "@angular/forms";
 import { UserModel } from "./user.model"
+import { Category } from "./category.model";
 
 export interface EventsModel {
     _id: string,
@@ -10,6 +11,7 @@ export interface EventsModel {
     user: UserModel | string | any,
     status: 'pending' | 'approved',
     attendees: UserModel[],
+    category?: Category
 }
 
 export interface EventForm {
@@ -17,4 +19,5 @@ export interface EventForm {
     description: FormControl<string | null>
     date: FormControl<string | null>
     location: FormControl<string | null>
+    category: FormControl<string | null>
 }

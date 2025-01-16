@@ -1,0 +1,9 @@
+<div class="mb-3">
+    <label class="form-label">{{label()}}</label>
+    <select [formControlName]="controlName()"  [class.is-invalid]="fc.invalid && fc.touched" formControlName="category" class="form-select" >
+        @for (item of options(); track $index) {
+            <option [value]="item._id">{{item.label}}</option>
+        }
+        
+    </select>
+</div>
