@@ -1,2 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('../public/css/dashlite.css');
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+.cursor-pointer {
+    cursor:  pointer !important;
+}
+
+table {
+    text-transform: capitalize !important;
+}
+
+.bh-datatable .bh-table-responsive table tbody tr {
+    border: 1px solid !important;
+    border-color: #dbd2d2 !important;
+}
+
+.bh-datatable .bh-table-responsive table tbody tr td, .bh-datatable .bh-table-responsive table tfoot tr th, .bh-datatable .bh-table-responsive table thead tr th {
+    padding: 5px 1rem !important;
+    font-size: 0.8rem !important;
+}
+
+.bh-datatable .bh-table-responsive table tfoot tr, .bh-datatable .bh-table-responsive table thead tr {
+    border: 1px solid !important;
+    border-color: #dbd2d2 !important;
+    background-color: transparent !important;
+}
+
+.bh-datatable .bh-table-responsive table tfoot tr th, .bh-datatable .bh-table-responsive table thead tr th {
+    padding: 0.70rem 1rem !important;
+}
+
+.modal-content {
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+}
