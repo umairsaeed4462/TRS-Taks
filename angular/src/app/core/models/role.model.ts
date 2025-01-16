@@ -1,3 +1,5 @@
+import { UserModel } from "./user.model";
+
 export interface Permission {
     dashboard: {
         view: boolean;
@@ -32,4 +34,7 @@ export interface Role {
     _id: string;
     role: string;
     permission: Permission;
+}
+export interface RoleDetails extends Role {
+    users: UserModel[];
 }

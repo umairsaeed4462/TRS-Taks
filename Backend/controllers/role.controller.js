@@ -4,8 +4,15 @@ const { responseHandler } = require('../utils/responseHandler');
 
 const createRole = async (req, res) => {
   try {
+    const { role } = req.body;
+    // const existingRole = await roleSchema.findOne({role: role});
+    // if (existingRole) {
+    //   return responseHandler(res, StatusCode.CONFLICT, 'Role already exists',existingRole);
+    // }
+
     const newRole = new roleSchema(req.body);
     await newRole.save();
+
     return responseHandler(res, StatusCode.CREATED, 'Role created successfully', newRole);
   } catch (error) {
     console.error(error);
@@ -13,9 +20,31 @@ const createRole = async (req, res) => {
   }
 };
 
+
 const getAllRoles = async (req, res) => {
   try {
     const roles = await roleSchema.find();
+    return responseHandler(res, StatusCode.SUCCESS, 'Roles retrieved successfully', roles);
+  } catch (error) {
+    console.error(error);
+    return responseHandler(res, StatusCode.INTERNAL_SERVER_ERROR, error.message, error);
+  }
+};
+
+const getAllRolesDetails = async (req, res) => {
+  try {
+    const roles = await roleSchema.aggregate([
+      {
+        $lookup: {
+          from: 'users',
+          localField: '_id',
+          foreignField: 'role',
+          as: 'users'
+        }
+      }
+    ]);
+
+
     return responseHandler(res, StatusCode.SUCCESS, 'Roles retrieved successfully', roles);
   } catch (error) {
     console.error(error);
@@ -76,4 +105,5 @@ module.exports = {
   getRoleById,
   updateRole,
   deleteRole,
+  getAllRolesDetails
 };

@@ -1,50 +1,84 @@
 <div class="container mt-5">
-    <br><br>
-    <div class="card">
-      <div class="card-header bg-primary text-white">
-        <h4>Role and Permissions</h4>
-      </div>
-      <div class="card-body">
-        <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-          <!-- Role Name -->
-          <div class="mb-4">
-            <label for="roleName" class="form-label">Role Name</label>
-            <input
-              id="roleName"
-              type="text"
-              class="form-control"
-              formControlName="role"
-              placeholder="Enter role name"
-            />
-          </div>
-  
+  <br><br>
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4> {{roleDetails()? 'Update':'Create'}} Role and Permissions</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+        <app-input controlName="role" label="Role Name" />
+        <div formGroupName="permission">
+
           <!-- Permissions Section -->
-          <div *ngFor="let section of permissionSections" class="mb-4">
-            <h5 class="text-secondary">{{ section.label }}</h5>
+          <div class="mb-4" formGroupName="dashboard">
+            <div class="form-check">
+              <input formControlName="view" class="form-check-input" type="checkbox" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                <h5 class="text-secondary">Dashboard</h5>
+              </label>
+            </div> 
             <div class="row">
-              <div *ngFor="let perm of section.permissions" class="col-md-4">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    [formControlName]="perm.key"
-                    [id]="perm.key"
-                  />
-                  <label class="form-check-label" [for]="perm.key">
-                    {{ perm.label }}
-                  </label>
-                </div>
-              </div>
+              <div class="col-md-4"><app-check-box controlName="totalUser" title="View Total User" /></div>
+              <div class="col-md-4"><app-check-box controlName="totalPendingEvent" title="View Pending Event" /></div>
+              <div class="col-md-4"><app-check-box controlName="totalActiveEvent" title="View Active Event" /></div>
+              <div class="col-md-4"><app-check-box controlName="totalEventJoins" title="View Event Joins" /></div>
             </div>
             <hr />
           </div>
-  
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-primary mt-3" [disabled]="roleForm.invalid">
-            Save Role
-          </button>
-        </form>
-      </div>
+
+          <div class="mb-4" formGroupName="user">
+            <div class="form-check">
+              <input formControlName="view" class="form-check-input" type="checkbox" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                <h5 class="text-secondary">User</h5>
+              </label>
+            </div> 
+            <div class="row">
+              <div class="col-md-4"><app-check-box controlName="create" title="Create" /></div>
+              <div class="col-md-4"><app-check-box controlName="edit" title="Edit" /></div>
+              <div class="col-md-4"><app-check-box controlName="delete" title="Delete" /></div>
+            </div>
+            <hr />
+          </div>
+          
+          <div class="mb-4" formGroupName="event">
+            <div class="form-check">
+              <input formControlName="view" class="form-check-input" type="checkbox" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                <h5 class="text-secondary">Events</h5>
+              </label>
+            </div> 
+            <div class="row">
+              <div class="col-md-4"><app-check-box controlName="create" title="Create" /></div>
+              <div class="col-md-4"><app-check-box controlName="edit" title="Edit" /></div>
+              <div class="col-md-4"><app-check-box controlName="delete" title="Delete" /></div>
+              <div class="col-md-4"><app-check-box controlName="approved" title="Approved" /></div>
+              <div class="col-md-4"><app-check-box controlName="join" title="Join" /></div>
+            </div>
+            <hr />
+          </div>
+          <div class="mb-4" formGroupName="role">
+            <div class="form-check">
+              <input formControlName="view" class="form-check-input" type="checkbox" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                <h5 class="text-secondary">Roles</h5>
+              </label>
+            </div> 
+            <div class="row">
+              <div class="col-md-4"><app-check-box controlName="create" title="Create" /></div>
+              <div class="col-md-4"><app-check-box controlName="edit" title="Edit" /></div>
+              <div class="col-md-4"><app-check-box controlName="delete" title="Delete" /></div>
+            </div>
+            <hr />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+         <!-- @if (userInfo()?.role?.permission?.role?.edit) { -->
+          <app-button type="submit" [title]="roleDetails()? 'Update Role': 'Save Role'" class="btn btn-primary mt-3" [isLoading]="isLoading()" [disable]="roleForm.invalid"/>
+         <!-- } -->
+        
+      </form>
     </div>
   </div>
-  
+</div>
