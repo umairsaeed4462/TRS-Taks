@@ -1,0 +1,10 @@
+/* Ensure modal content is above other elements */
+.modal-content {
+    z-index: 1050 !important;
+  }
+  
+  /* If any other overlay element is blocking the modal, ensure it's below the modal */
+  .modal-backdrop {
+    z-index: 1040 !important;
+  }
+  
