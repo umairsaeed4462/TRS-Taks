@@ -12,7 +12,7 @@ router.route('/updateEvent/:eventId').put(authenticateToken, updateEvent);
 router.route('/deleteEvent/:eventId').delete(authenticateToken, deleteEvent);
 
 router.route('/join').post(authenticateToken, joinEvent);
-router.route('/approved/:eventId').patch(authenticateToken, approvedEvent);
+router.route('/approved/:eventId').patch(approvedEvent);
 router.route('/dashboardReport').get(authenticateToken, dashboardReport);
 router.route('/dashboardReport/:userID').get(dashboardReportByID);
 

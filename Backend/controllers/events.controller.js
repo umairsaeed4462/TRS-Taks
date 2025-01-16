@@ -1,6 +1,8 @@
 const { eventSchema } = require('../models/event.model');
 const { StatusCode } = require('../consts/const');
 const { responseHandler } = require('../utils/responseHandler');
+const { sendApprovalMail, sendEventDeletionMail, upComingActivityMailToAllUsers } = require('../utils/sendMail');
+const { userSchema } = require('../models/user.model');
 
 // Create a new event
 const createEvent = async (req, res) => {
@@ -9,6 +11,7 @@ const createEvent = async (req, res) => {
         if (title && description && date && location && user) {
             const newEvent = new eventSchema(req.body);
             await newEvent.save();
+            upComingActivityMailToAllUsers(title)
             return responseHandler(res, StatusCode.CREATED, 'Event created successfully', newEvent);
         } else {
             return responseHandler(res, StatusCode.BAD_REQUEST, 'Title, description, date, location, and user are required');
@@ -83,6 +86,8 @@ const deleteEvent = async (req, res) => {
         if (!deletedEvent) {
             return responseHandler(res, StatusCode.NOT_FOUND, 'Event not found');
         }
+        const users = await userSchema.findById(deletedEvent.user);
+        sendEventDeletionMail(users.email, deletedEvent.title)
         return responseHandler(res, StatusCode.SUCCESS, 'Event deleted successfully', deletedEvent);
     } catch (error) {
         console.error(error);
@@ -102,6 +107,8 @@ const approvedEvent = async (req, res) => {
         if (!updatedEvent) {
             return responseHandler(res, StatusCode.NOT_FOUND, 'Event not found');
         }
+        const users = await userSchema.findById(updatedEvent.user);
+        sendApprovalMail(users.email, updatedEvent.title)
         return responseHandler(res, StatusCode.SUCCESS, 'Event Approved successfully', updatedEvent);
     } catch (error) {
         console.error(error);
