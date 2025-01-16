@@ -9,6 +9,8 @@ import { DEFAULT_ROLE_ID } from '../../../core/consts/consts';
 import { AuthApiService } from '../../../core/services/API\'s/auth-api.service';
 import { RoleApiService } from '../../../core/services/API\'s/role-api.service';
 import { Role } from '../../../core/models/role.model';
+import { LocalstorageService } from '../../../core/services/localstorage.service';
+import { LocalStorageKeys } from '../../../core/enums/core.enum';
 @Component({
   selector: 'app-user-details',
   standalone: true,
@@ -19,6 +21,7 @@ import { Role } from '../../../core/models/role.model';
 export class UserDetailsComponent implements OnInit {
 
   public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
+  public currentUserInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
   public roleList: WritableSignal<Role[]> = signal<Role[]>([]);
   public isSubLoading: WritableSignal<boolean> = signal<boolean>(false);
@@ -33,6 +36,7 @@ export class UserDetailsComponent implements OnInit {
   private apiSer: AuthApiService = inject(AuthApiService);
   private toaster: ToastrService = inject(ToastrService);
   private roleSer: RoleApiService = inject(RoleApiService);
+  private localSer: LocalstorageService = inject(LocalstorageService);
 
   public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('closeBtn');
   public deleteModel: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('deleteModel');
@@ -43,7 +47,12 @@ export class UserDetailsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.fetchAllRoles();
+    this.getUserInfo();
   }
+
+  private async getUserInfo(): Promise<void> {
+      this.currentUserInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
+    }
 
   private fetchAllRoles(): void {
     this.roleSer.getAllRole().subscribe((res: HttpResponseModel) => {

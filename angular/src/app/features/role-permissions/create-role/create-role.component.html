@@ -1,9 +1,22 @@
 <div class="container mt-5">
-  <br><br>
-  <div class="card">
-    <div class="card-header bg-primary text-white">
-      <h4> {{roleDetails()? 'Update':'Create'}} Role and Permissions</h4>
-    </div>
+  <br>
+  <div class="nk-block">
+    <div class="nk-block-between">
+        <div class="nk-block-head-content">
+            <h4 class="nk-block-title">{{roleDetails()? 'Update':'Create'}} Role and Permissions</h4>
+            <div class="nk-block-des">
+                <p>Create new roles and give him permissions</p>
+            </div>
+        </div>
+        
+        <div class="nk-block-head-content">
+            
+            
+        </div><!-- .nk-block-head-content -->
+    </div><!-- .nk-block-between -->
+</div><!-- .nk-block-head -->
+  <div class="card mt-4">
+    
     <div class="card-body">
       <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
         <app-input controlName="role" label="Role Name" />
@@ -52,7 +65,7 @@
               <div class="col-md-4"><app-check-box controlName="create" title="Create" /></div>
               <div class="col-md-4"><app-check-box controlName="edit" title="Edit" /></div>
               <div class="col-md-4"><app-check-box controlName="delete" title="Delete" /></div>
-              <div class="col-md-4"><app-check-box controlName="approved" title="Approved" /></div>
+              <div class="col-md-4"><app-check-box controlName="approved" title="approve" /></div>
               <div class="col-md-4"><app-check-box controlName="join" title="Join" /></div>
             </div>
             <hr />

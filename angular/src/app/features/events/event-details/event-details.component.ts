@@ -38,7 +38,6 @@ export class EventDetailsComponent {
   public constructor() {
     this.event.set(history.state.data);
     this.getUserInfo();
-
   }
 
   private async getUserInfo(): Promise<void> {

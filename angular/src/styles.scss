@@ -7,7 +7,7 @@
     cursor:  pointer !important;
 }
 
-* {
+table {
     text-transform: capitalize !important;
 }
 
@@ -29,4 +29,9 @@
 
 .bh-datatable .bh-table-responsive table tfoot tr th, .bh-datatable .bh-table-responsive table thead tr th {
     padding: 0.70rem 1rem !important;
+}
+
+.modal-content {
+    max-height: 85vh !important;
+    overflow-y: auto !important;
 }

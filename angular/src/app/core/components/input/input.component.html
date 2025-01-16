@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label [for]="label()" class="form-label">{{label()}}</label>
+    <label [for]="label()" class="form-label"  style="text-transform: capitalize !important;">{{label()}}</label>
     @if(isTextArea()) {
         <textarea class="form-control" style="text-transform: none !important;" [formControlName]="controlName()" [placeholder]="placeholder()" [readonly]="disable()" [class.is-invalid]="fc.invalid && fc.touched"></textarea>
     }@else {

@@ -70,7 +70,7 @@ export class RolePermissionComponent implements OnInit {
     this.apiSer.getUser().subscribe({
       next: (res: HttpResponseModel) => {
         this.isLoading.set(false);
-        this.rows.set((res.data as Array<UserModel>));
+        this.rows.set((res.data as Array<UserModel>).filter(item=> item._id !== this.userInfo()?._id));
       }, error: () => { this.isLoading.set(false); }
     })
   }

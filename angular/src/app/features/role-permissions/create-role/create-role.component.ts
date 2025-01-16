@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormArray, ReactiveFormsModule } from '@angular/forms';
 import { AfterViewInit, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { InputComponent } from '../../../core/components/input/input.component';
@@ -20,17 +20,17 @@ import { LocalStorageKeys } from '../../../core/enums/core.enum';
   templateUrl: './create-role.component.html',
   styleUrl: './create-role.component.scss'
 })
-export class CreateRoleComponent implements AfterViewInit {
- 
+export class CreateRoleComponent implements OnInit, AfterViewInit {
+
   public roleForm: FormGroup = new FormGroup({
     role: new FormControl('', Validators.required),
     permission: new FormGroup({
       dashboard: new FormGroup({
-        view: new FormControl(true),
+        view: new FormControl(false),
         totalUser: new FormControl(false),
-        totalPendingEvent: new FormControl(true),
-        totalActiveEvent: new FormControl(true),
-        totalEventJoins: new FormControl(true)
+        totalPendingEvent: new FormControl(false),
+        totalActiveEvent: new FormControl(false),
+        totalEventJoins: new FormControl(false)
       }),
       user: new FormGroup({
         view: new FormControl(false),
@@ -39,12 +39,12 @@ export class CreateRoleComponent implements AfterViewInit {
         delete: new FormControl(false),
       }),
       event: new FormGroup({
-        view: new FormControl(true),
-        create: new FormControl(true),
-        edit: new FormControl(true),
+        view: new FormControl(false),
+        create: new FormControl(false),
+        edit: new FormControl(false),
         delete: new FormControl(false),
         approved: new FormControl(false),
-        join: new FormControl(true),
+        join: new FormControl(false),
       }),
       role: new FormGroup({
         view: new FormControl(false),
@@ -56,36 +56,68 @@ export class CreateRoleComponent implements AfterViewInit {
   })
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
   public roleDetails: WritableSignal<Role | null> = signal<Role | null>(null);
- public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null); 
+  public userInfo: WritableSignal<UserModel | null> = signal<UserModel | null>(null);
 
   private roleSer: RoleApiService = inject(RoleApiService);
   private toastSer: ToastrService = inject(ToastrService);
-   private localSer: LocalstorageService = inject(LocalstorageService);
-  
+  private localSer: LocalstorageService = inject(LocalstorageService);
+
   public constructor() {
     this.roleDetails.set(history.state.data);
   }
 
   public ngOnInit(): void {
     this.getUserInfo();
+    this.registerFormEvents();
+  }
+
+  private registerFormEvents(): void {
+    const permissionControls = (this.roleForm.get('permission') as FormGroup).controls;
+    Object.keys(permissionControls).forEach((groupKey) => {
+      const group = permissionControls[groupKey] as FormGroup;
+      const viewControl = group.get('view');
+      if (viewControl) {
+        const isViewEnabled = viewControl.value;
+        this.onFormDataSet(group, isViewEnabled)
+        viewControl.valueChanges.subscribe((isViewEnabled) => {
+          this.onFormDataSet(group, isViewEnabled)
+        });
+      }
+    });
+  }
+
+  private onFormDataSet(group:any, isViewEnabled: boolean) {
+    Object.keys(group.controls).forEach((controlKey) => {
+      if (controlKey !== 'view') {
+        const control = group.get(controlKey);
+        if (control) {
+          if (isViewEnabled) {
+            control.enable(); // Enable other controls if "view" is true
+          } else {
+            control.disable(); // Disable other controls if "view" is false
+            control.setValue(false); // Set the value to false
+          }
+        }
+      }
+    });
   }
 
   private async getUserInfo(): Promise<void> {
-      this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
-    }
+    this.userInfo.set(await this.localSer.getItem<UserModel>(LocalStorageKeys.USER_LOGIN));
+  }
 
   public ngAfterViewInit(): void {
-    if(this.roleDetails()) {
+    if (this.roleDetails()) {
       this.roleForm.patchValue(this.roleDetails()!);
     }
   }
 
   public onSubmit(): void {
-    if(this.roleDetails()) {
+    this.enableAllFields(this.roleForm);
+    if (this.roleDetails()) {
       this.onEditRole();
       return;
     }
-
     this.isLoading.set(true);
     this.roleSer.createRole(this.roleForm.value).subscribe({
       next: (res: HttpResponseModel) => {
@@ -111,6 +143,17 @@ export class CreateRoleComponent implements AfterViewInit {
       },
       error: () => {
         this.isLoading.set(false);
+      }
+    });
+  }
+
+  public enableAllFields(formGroup: FormGroup | FormArray): void {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.enableAllFields(control);
+      } else {
+        control?.enable();
       }
     });
   }

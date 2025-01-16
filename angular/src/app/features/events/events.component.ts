@@ -63,6 +63,7 @@ export class EventsComponent {
         this.fetchEvents();
         this.toastSer.success(res.message);
         this.eventModel()?.onCloseModel();
+        this.eventModel()?.eventForm.reset();
       }, error: () => { this.isLoading.set(false); }
     })
 

@@ -15,14 +15,14 @@
                 </div><!-- .nk-block-between -->
                 <div class="nk-block-head-content">
                     <div class="toggle-wrap nk-block-tools-toggle">
-                        @if (userInfo()?.role?.permission?.user?.delete) {
+                        @if (currentUserInfo()?.role?.permission?.user?.delete) {
                             <button (click)="onUpdateClick()" type="button" class="btn btn-primary" style="margin-right: 4px;" data-toggle="modal"
                             data-target="#deleteModal">
                             Delete
                         </button>
                         }
                         
-                        @if (userInfo()?.role?.permission?.user?.edit) {
+                        @if (currentUserInfo()?.role?.permission?.user?.edit) {
                             <button (click)="onUpdateClick()" type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#exampleModal">
                             Update

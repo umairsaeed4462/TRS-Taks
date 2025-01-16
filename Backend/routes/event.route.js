@@ -5,7 +5,7 @@ const { joinEvent, dashboardReport, dashboardReportByID } = require('../controll
 const authenticateToken = require('../middlewares/authenticate');
 
 router.route('/create').post(authenticateToken, createEvent);
-router.route('/').get(authenticateToken, getAllEvents);
+router.route('/').get( getAllEvents);
 router.route('/getAllActiveEvents').get(authenticateToken, getActiveEvents);
 router.route('/eventsByUserID/:userID').get(authenticateToken, getEventById);
 router.route('/updateEvent/:eventId').put(authenticateToken, updateEvent);

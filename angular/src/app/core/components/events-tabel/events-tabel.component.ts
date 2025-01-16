@@ -3,7 +3,6 @@ import { colDef, DataTableModule } from '@bhplugin/ng-datatable';
 import { EventsModel } from '../../models/events.model';
 import { EVENTS_COLUMNS } from '../../consts/consts';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from '../button/button.component';
 import { LocalstorageService } from '../../services/localstorage.service';
 import { EventModelComponent } from '../../../shared/components/event-model/event-model.component';
 import { UserModel } from '../../models/user.model';
@@ -18,7 +17,7 @@ import 'jspdf-autotable';
 @Component({
   selector: 'app-events-tabel',
   standalone: true,
-  imports: [DataTableModule, ReactiveFormsModule, ButtonComponent, DatePipe],
+  imports: [DataTableModule, ReactiveFormsModule, DatePipe],
   templateUrl: './events-tabel.component.html',
   styleUrl: './events-tabel.component.scss'
 })
