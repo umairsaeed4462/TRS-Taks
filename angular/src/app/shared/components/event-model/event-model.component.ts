@@ -10,6 +10,9 @@ import { Category } from '../../../core/models/category.model';
 import { CategoryApiService } from '../../../core/services/API\'s/category-api.service';
 import { HttpResponseModel } from '../../../core/models/core.model';
 import { Options, SelectOptionComponent } from '../../../core/components/select-option/select-option.component';
+import { AuthApiService } from '../../../core/services/API\'s/auth-api.service';
+import { UserModel } from '../../../core/models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-event-model',
@@ -18,13 +21,16 @@ import { Options, SelectOptionComponent } from '../../../core/components/select-
   templateUrl: './event-model.component.html',
   styleUrl: './event-model.component.scss'
 })
-export class EventModelComponent implements AfterViewInit {
+export class EventModelComponent implements AfterViewInit, OnInit {
 
   public eventDetail: InputSignal<EventsModel | null> = input<EventsModel | null>(null);
   public categoryList: WritableSignal<Category[]> = signal<Category[]>([]);
+  public userList: WritableSignal<UserModel[]> = signal<UserModel[]>([]);
+  public memberList: WritableSignal<string[]> = signal<string[]>([]);
   public isLoading: WritableSignal<boolean> = signal<boolean>(false);
   public isEdit: WritableSignal<boolean> = signal<boolean>(false);
   public isAddCategory: WritableSignal<boolean> = signal<boolean>(false);
+  public isAddMembers: WritableSignal<boolean> = signal<boolean>(false);
   public eventForm: FormGroup<EventForm> = new FormGroup<EventForm>({
     title: new FormControl('', Validators.required),
     location: new FormControl('', Validators.required),
@@ -32,11 +38,14 @@ export class EventModelComponent implements AfterViewInit {
     date: new FormControl('', [Validators.required, pastDateValidator()]),
     category: new FormControl('', [Validators.required, pastDateValidator()])
   });
+  public member: FormControl = new FormControl('')
 
   public onSave: OutputEmitterRef<EventsModel> = output<EventsModel>();
 
   private utilitySer: UtilityService = inject(UtilityService);
   private categorySer: CategoryApiService = inject(CategoryApiService);
+  private userSer: AuthApiService = inject(AuthApiService);
+  private toastSer: ToastrService = inject(ToastrService);
 
   public closeBtn: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>('closeBtn');
 
@@ -48,6 +57,10 @@ export class EventModelComponent implements AfterViewInit {
     })
   }
 
+  public ngOnInit(): void {
+    this.fetchUserList();
+  }
+
   public ngAfterViewInit(): void {
     this.fetchCategories();
     this.eventForm.get('date')?.setValue(this.utilitySer.formatDateString((new Date()).toISOString()));
@@ -56,6 +69,12 @@ export class EventModelComponent implements AfterViewInit {
   private fetchCategories(): void {
     this.categorySer.getAllCategories().subscribe((res: HttpResponseModel)=>{
       this.categoryList.set((res.data as Array<Category>));
+    })
+  }
+
+  private fetchUserList(): void {
+    this.userSer.getUser().subscribe((res: HttpResponseModel)=> {
+      this.userList.set((res.data as Array<UserModel>));
     })
   }
 
@@ -72,7 +91,9 @@ export class EventModelComponent implements AfterViewInit {
   }
 
   public onAddEvent(): void {
-    this.onSave.emit(this.eventForm.value as EventsModel);
+    const payload:any = (this.eventForm.value);
+    payload.attendees = this.memberList();
+    this.onSave.emit(payload);
   }
 
   public onCloseModel(): void {
@@ -88,6 +109,24 @@ export class EventModelComponent implements AfterViewInit {
       this.isAddCategory.set(false);
       this.fetchCategories();
     });
+  }
+
+  public onAddMember(): void {
+    if(this.memberList().includes(this.member.value)){
+      this.toastSer.error('Member is already added');
+      return;
+    }
+    this.memberList().push(this.member.value);
+    this.member.setValue('');
+    
+  }
+
+  public getUser(id: string): UserModel {
+    return this.userList().find((user: UserModel) => user._id === id)!;
+  }
+
+  public onRemoveMember(user: UserModel): void {
+    this.memberList.set(this.memberList().filter ( member => member != user._id));
   }
 
 }

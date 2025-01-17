@@ -13,7 +13,6 @@ export interface EventsModel {
     attendees: UserModel[],
     category?: Category
 }
-
 export interface EventForm {
     title: FormControl<string | null>
     description: FormControl<string | null>

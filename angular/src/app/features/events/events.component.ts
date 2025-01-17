@@ -55,7 +55,6 @@ export class EventsComponent {
     if (!user) return;
     event.user = user._id!;
     event.status = 'pending';
-    event.attendees = [];
     this.isLoading.set(true);
     this.eventSer.createNewEvent(event).subscribe({
       next: (res: HttpResponseModel) => {
