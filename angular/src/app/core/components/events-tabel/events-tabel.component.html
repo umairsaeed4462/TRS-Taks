@@ -1,0 +1,95 @@
+<div class="card card-bordered card-stretch">
+    <div class="card-inner-group">
+
+        <div class="card-inner">
+            <div class="row justify-between g-2 with-export mb-2">
+                <div class="col-7 col-sm-4 text-start">
+                    <div id="DataTables_Table_2_filter" class="dataTables_filter"><label><input
+                                [formControl]="searchField" type="search" class="form-control form-control-sm"
+                                placeholder="Type in to Search" aria-controls="DataTables_Table_2"></label></div>
+                </div>
+                <div class="col-5 col-sm-8 text-end">
+                    <div class="datatable-filter">
+                        <div class="d-flex justify-content-end g-2">
+                            <div class="dt-export-buttons d-flex align-center">
+                                <div class="dt-export-title d-none d-md-inline-block">Export</div>
+                                <div class="dt-buttons btn-group flex-wrap">
+                                    <!-- <button (click)="onExportData()"
+                                        class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                        aria-controls="DataTables_Table_2" type="button"><span>Excel</span></button>
+                                    <button (click)="onExportData()" class="btn btn-secondary buttons-csv buttons-html5"
+                                        tabindex="0" aria-controls="DataTables_Table_2"
+                                        type="button"><span>CSV</span></button> -->
+                                    <button (click)="onExportData()" class="btn btn-secondary buttons-pdf buttons-html5"
+                                        tabindex="0" aria-controls="DataTables_Table_2"
+                                        type="button"><span>PDF</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="padding: 5px;">
+                <ng-datatable [columnFilter]="false" noDataContent="Event Not Found" [rows]="rows()" [columns]="cols()"
+                    [sortable]="true" skin="whitespace-nowrap bh-table-hover" [search]="searchValue()"
+                    [loading]="isLoading()"
+                    firstArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+                    lastArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg> '
+                    previousArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'
+                    nextArrow='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>'>
+
+                    <ng-template slot="category" let-value="data">
+                        {{value?.category?.title ?? 'Not Define'}}
+                    </ng-template>
+                    <ng-template slot="status" let-value="data">
+                        {{value.status}}
+                    </ng-template>
+
+                    <ng-template slot="date" let-value="data">
+                        {{value.date | date}}
+                    </ng-template>
+
+                    <ng-template slot="actions" let-value="data">
+                        <div class="drodown "><!-- nk-tb-col -->
+                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <ul class="link-list-opt no-bdr">
+                                    <li><a (click)="this.utilitySer.navigateToWithData('events/details', value);" class="cursor-pointer"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </ng-datatable>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- <div id="content">
+    <br><br><br><br><br>
+    <div id="data" style="visibility: hidden;">
+        <p>This content will be exported to PDF!</p>
+    <table class="datatable-init-export nowrap table" data-export-title="Export">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of rows(); track $index) {
+                <tr>
+                    <td>{{item.title}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.location}}</td>
+                    <td>{{item.status}}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div> -->

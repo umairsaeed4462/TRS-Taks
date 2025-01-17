@@ -1,0 +1,111 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <br><br><br>
+
+            <div class="nk-block d-flex justify-content-between">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title">User Details</h4>
+                        <div class="nk-block-des">
+                            <p>User Information & Permissions</p>
+                        </div>
+                    </div>
+                    
+                </div><!-- .nk-block-between -->
+                <div class="nk-block-head-content">
+                    <div class="toggle-wrap nk-block-tools-toggle">
+                        @if (currentUserInfo()?.role?.permission?.user?.delete) {
+                            <button (click)="onUpdateClick()" type="button" class="btn btn-primary" style="margin-right: 4px;" data-toggle="modal"
+                            data-target="#deleteModal">
+                            Delete
+                        </button>
+                        }
+                        
+                        @if (currentUserInfo()?.role?.permission?.user?.edit) {
+                            <button (click)="onUpdateClick()" type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#exampleModal">
+                            Update
+                        </button>
+                        }
+                    </div><!-- .toggle-wrap -->
+                </div>
+            </div><!-- .nk-block-head -->
+
+            <div class="nk-block">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User Information</h5>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Username</th>
+                                    <td>{{ userInfo()?.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td>{{ userInfo()?.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Role</th>
+                                    <td>{{ userInfo()?.role?.role }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- .nk-block -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" #eventModel id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{true? "Update User": "Create New User"}} </h5>
+                <button #closeBtn type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form [formGroup]="userForm" (ngSubmit)="onUpdateUser()" novalidate>
+                <div class="modal-body">
+                    <app-input controlName="username" label="Username"></app-input>
+                    <app-input controlName="email" label="Email"></app-input>
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select formControlName="role" class="form-select" >
+                            @for (item of roleList(); track $index) {
+                                <option [value]="item._id">{{item.role}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" #closeBtn data-dismiss="modal">Close</button>
+                    <app-button [title]="true? 'Update': 'Add'" type="submit" [disable]="userForm.invalid"
+                        [isLoading]="isLoading()" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                <p>Are you sure you want to delete this User?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" #deleteModel data-dismiss="modal">Cancel</button>
+                <app-button title="Delete" (click)="onDeleteUser()" [isLoading]="isSubLoading()" />
+            </div>
+        </div>
+    </div>
+</div>

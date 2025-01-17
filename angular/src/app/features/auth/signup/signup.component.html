@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row justify-content-center signup-container">
+      <div class="col-md-4">
+        <div class="signup-form">
+          <h3 class="signup-header">Sign Up</h3>
+          <!-- Sign Up Form Start -->
+          <form [formGroup]="signUpForm" (ngSubmit)="sendVerificationEmail()" novalidate>
+            <!-- Username Field -->
+            <app-input controlName="username" label="Username"></app-input>
+            <app-input controlName="email" type="email" label="Email"></app-input>
+            <app-input controlName="password" type="password" label="Password"></app-input>
+            <app-input controlName="cPassword" type="password" label="Confirm Password"></app-input>
+            @if (signUpForm.get('cPassword')?.value != signUpForm.get('password')?.value) {
+              <p class="text-danger">Password Not Matched</p>
+            }
+            <!-- Sign Up Button -->
+            <app-button title="Sign Up" type="submit" [disable]="signUpForm.invalid || signUpForm.get('cPassword')?.value == signUpForm.get('password')" [isLoading]="isLoading()"></app-button>
+          </form>
+          <!-- Sign Up Form End -->
+
+          <!-- Login Link -->
+          <div class="login-link">
+            <p>Already have an account? <a routerLink="/auth/login">Login</a></p>
+          </div>
+
+          @if (isVerificationEmailSend()) {
+            <div class="text-center mt-3">
+              <p>Verification email has been sent to your registered email address. Please check your inbox and verify your account.</p>
+            </div>
+          }
+          
+        </div>
+      </div>
+    </div>
+  </div>
